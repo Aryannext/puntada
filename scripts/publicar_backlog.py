@@ -193,8 +193,8 @@ def validar(historias, elementos, hitos, capacidad) -> list[str]:
                 errores.append(f"{e.codigo}: {e.puntos} puntos en el backlog y {h.puntos} en la historia")
         elif not e.detalle:
             errores.append(f"{e.codigo} no tiene sección de detalle")
-        if (e.prioridad == "Must") != bool(e.sprint):
-            errores.append(f"{e.codigo}: lo Must va en un sprint y lo Should o Could queda sin sprint")
+        if e.prioridad == "Must" and not e.sprint:
+            errores.append(f"{e.codigo}: lo Must tiene que ir en un sprint")
         for d in e.depende:
             previo = posicion.get(d)
             if previo is None:
@@ -211,14 +211,16 @@ def validar(historias, elementos, hitos, capacidad) -> list[str]:
             errores.append(f"{e.codigo} está terminado sin evidencia")
 
     for sprint, (total, de_hu, de_ht) in capacidad.items():
-        items = [e for e in desarrollo if e.sprint == sprint]
+        # La tabla de capacidad es el compromiso del sprint, que es lo Must y nada más.
+        # Lo Should y lo Could que entró porque sobró capacidad lleva su sprint, pero no cuenta aquí.
+        items = [e for e in desarrollo if e.sprint == sprint and e.prioridad == "Must"]
         real = (
             sum(e.puntos for e in items),
             sum(e.puntos for e in items if e.tipo == "HU"),
             sum(e.puntos for e in items if e.tipo == "HT"),
         )
         if real != (total, de_hu, de_ht):
-            errores.append(f"{sprint}: la tabla de capacidad dice {(total, de_hu, de_ht)} y los elementos suman {real}")
+            errores.append(f"{sprint}: la tabla de capacidad dice {(total, de_hu, de_ht)} y lo comprometido suma {real}")
     return errores
 
 

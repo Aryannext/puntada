@@ -137,11 +137,12 @@ Una historia entra a un sprint solo si cumple la definición de "lista para desa
 
 Todavía no hay velocidad medida, así que el compromiso de cada sprint de desarrollo es lo Must y nada más. Lo Should y lo Could no tienen sprint: entran solo si sobra capacidad.
 
-| Sprint | Fechas | Días | Puntos | De historias | De habilitadores |
+| Sprint | Fechas | Días | Puntos comprometidos | De historias | De habilitadores |
 | --- | --- | --- | --- | --- | --- |
 | **Sprint 3** | 29 sep – 5 oct | 7 | 40 | 33 | 7 |
 | **Sprint 4** | 6 – 10 oct | 5 | 43 | 33 | 10 |
 
+- **El Sprint 4 cerró con 67 puntos y no con 43.** La tabla de arriba es el compromiso, que es lo Must; las doce historias Should y Could entraron porque sobró capacidad, y por eso en la tabla de elementos aparecen con su sprint. Ninguna se quedó recortada.
 - **El Sprint 4 tiene menos días y más puntos.** Es un riesgo aceptado a propósito: el Sprint 3 carga el aprendizaje de Laravel y crea los patrones (formularios, validaciones, pruebas, filtro por negocio) que el Sprint 4 repite. El 14 de septiembre se agregó HT-07 (APK), que subió el Sprint 4 de 40 a 43 puntos, porque las usuarias trabajan desde el celular (ADR-006).
 - **Punto de control el jueves 1 de octubre.** Al terminar el tercer día del Sprint 3 se cuentan los puntos terminados. Si son menos de 15, a ese ritmo el sprint cerraría con unos 35 de 40, y el recorte se decide ese mismo día, no al cierre.
 - **Orden del recorte:** primero no entra nada Should ni Could; después el aprendiz decide qué Must sale y lo declara para la aprobación final (DOC-14), empezando por lo que no rompe el flujo principal (por ejemplo, HU-33 se ve parcialmente en el panel de HU-32, y HU-31 solo consulta). Nunca se recortan pruebas ni documentación.
