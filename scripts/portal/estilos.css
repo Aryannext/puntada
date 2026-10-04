@@ -138,6 +138,27 @@ pre.mermaid { background: none; }
 .pie { max-width: 1280px; margin: 0 auto; padding: 0 20px 40px; color: var(--tinta-2); font-size: 13px; }
 
 
+/* Las cifras de la portada: lo que el proyecto tiene, de un vistazo */
+.cifras-portada { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 10px; margin-top: 22px; }
+.cifra {
+  display: flex; flex-direction: column; gap: 2px; padding: 14px 16px;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+  color: inherit; text-decoration: none;
+}
+.cifra:hover { border-color: var(--primario); }
+.cifra strong { font-size: 30px; line-height: 1.1; color: var(--primario); }
+.cifra span { color: var(--tinta-2); font-size: 13.5px; }
+
+/* El filtro de las listas largas: la de criterios tiene 134 filas */
+.filtro { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0 4px; }
+.filtro input {
+  flex: 1; min-width: 220px; padding: 10px 14px; font: inherit; font-size: 15px;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: 999px; color: inherit;
+}
+.filtro input:focus { outline: 2px solid var(--primario); outline-offset: 1px; border-color: transparent; }
+.filtro .marcador { color: var(--tinta-2); font-size: 14px; white-space: nowrap; }
+.sin-resultados { padding: 18px; color: var(--tinta-2); }
+.sin-resultados[hidden] { display: none; }
 /* El menú se pliega en pantalla angosta. Abierto ocupaba 1.600 px y empujaba el contenido */
 .menu-caja > summary {
   display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none;

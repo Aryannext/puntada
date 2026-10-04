@@ -322,6 +322,22 @@ class Portal:
             bloques.append(f"<h2>{e(grupo)}</h2><ul>{items}</ul>")
         return "".join(bloques)
 
+    def cifras_del_proyecto(self) -> str:
+        """Lo que el proyecto tiene, contado de los documentos y del código, no escrito a mano."""
+        cuenta = defaultdict(int)
+        for c in self.elementos:
+            cuenta[prefijo(c)] += 1
+        pruebas = sum(len(re.findall(r"function\s+test_", f.read_text(encoding="utf-8")))
+                      for f in (L.SISTEMA / "tests").rglob("*Test.php"))
+        celdas = [
+            (cuenta["HU"], "historias de usuario", "t/HU.html"),
+            (cuenta["CA"], "criterios de aceptación", "t/CA.html"),
+            (cuenta["RN"], "reglas de negocio", "t/RN.html"),
+            (pruebas, "métodos de prueba", "doc/05-pruebas-informe-de-pruebas.html"),
+            (cuenta["PT"], "pantallas", "t/PT.html"),
+        ]
+        return "".join(f'<a class="cifra" href="{url}"><strong>{n}</strong><span>{e(texto)}</span></a>'
+                       for n, texto, url in celdas if n)
     def pie(self) -> str:
         return (f'Generado con <code>python scripts/generar_portal.py</code> desde los documentos del repositorio, '
                 f'versión <a href="{self.enlazador.repositorio}/commit/{self.enlazador.ref}">{self.enlazador.ref[:7]}</a>. '
@@ -500,11 +516,16 @@ class Portal:
                 extra = f'<td>{e(datos.get("prioridad", ""))}</td><td>{e(datos.get("sprint", ""))}</td><td><span class="etiqueta {clase}">{estado}</span></td>'
             filas.append(f'<tr><td><a href="../e/{c}.html"><strong>{c}</strong></a></td><td>{e(self.titulo_corto(c))}</td>{extra}</tr>')
         cabecera = "<th>Prioridad</th><th>Sprint</th><th>Estado</th>" if tipo.prefijo == "HU" else ""
+        filtro = ("" if len(codigos) < 13 else f'<div class="filtro"><input type="search" data-filtro placeholder="Filtrar: escribe una palabra o un código"'
+                  f' aria-label="Filtrar la lista" autocomplete="off">'
+                  f'<span class="marcador" data-marcador>{len(codigos)} de {len(codigos)}</span></div>')
         contenido = (f'<div class="migas"><a href="../index.html">Inicio</a> › {e(tipo.seccion)}</div>'
                      f'<h1 class="titulo"><span class="sigla sigla-grande">{tipo.prefijo}</span>{e(tipo.plural)} <span class="etiqueta">{len(codigos)}</span></h1>'
                      f'<p class="tipo-explicado"><span><strong>{e(tipo.singular)}:</strong> {e(tipo.explicacion)} '
                      f'<a href="../glosario.html">Ver todas las siglas</a></span></p>'
-                     f'<table class="tabla"><thead><tr><th>Código</th><th>Título</th>{cabecera}</tr></thead><tbody>{"".join(filas)}</tbody></table>')
+                     f'{filtro}'
+                     f'<table class="tabla" data-lista><thead><tr><th>Código</th><th>Título</th>{cabecera}</tr></thead><tbody>{"".join(filas)}</tbody></table>'
+                     f'<p class="sin-resultados" data-vacio hidden>Ningún elemento coincide con lo que escribiste.</p>')
         self.escribir_pagina(f"t/{tipo.prefijo}.html", tipo.plural, contenido)
 
     def pagina_diagrama(self, d: L.Diagrama) -> None:
@@ -607,6 +628,7 @@ class Portal:
     <a class="boton" href="#recorrido">Empezar el recorrido guiado</a>
     <a class="boton secundario" href="glosario.html">Qué significa cada sigla</a>
   </div>
+  <div class="cifras-portada">{self.cifras_del_proyecto()}</div>
 </section>
 
 <section class="tarjeta">

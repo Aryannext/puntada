@@ -73,6 +73,28 @@
     }
   });
 
+
+  // --- Filtro de las listas largas: la de criterios tiene 134 filas ---
+  const filtro = document.querySelector("[data-filtro]");
+  const tabla = document.querySelector("[data-lista]");
+  if (filtro && tabla) {
+    const filas = Array.from(tabla.tBodies[0].rows);
+    const marcador = document.querySelector("[data-marcador]");
+    const vacio = document.querySelector("[data-vacio]");
+    const textos = filas.map((f) => f.textContent.toLowerCase());
+    filtro.addEventListener("input", () => {
+      const busca = filtro.value.trim().toLowerCase();
+      let visibles = 0;
+      filas.forEach((fila, i) => {
+        const pasa = !busca || textos[i].includes(busca);
+        fila.hidden = !pasa;
+        if (pasa) visibles++;
+      });
+      if (marcador) marcador.textContent = `${visibles} de ${filas.length}`;
+      if (vacio) vacio.hidden = visibles > 0;
+    });
+  }
+
   // --- Diagramas: Mermaid los dibuja en la página, con los mismos textos del documento ---
   if (window.mermaid && document.querySelector('pre.mermaid')) {
     // Los de secuencia no se encogen al ancho de la página: con muchos participantes, la letra quedaba ilegible
