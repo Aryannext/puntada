@@ -73,6 +73,7 @@ erDiagram
         bigint negocio_id FK
         varchar nombre
         varchar usuario UK
+        varchar correo UK
         varchar contrasena
         varchar token_recordar
         datetime creado_en
@@ -277,6 +278,9 @@ Cada regla se protege en el lugar más cercano a los datos donde se puede expres
 | **RN-42** | Columna `mensaje` | Arma el mensaje con los datos del momento del envío | — |
 | **RN-43** | `uq_tipos_prenda_negocio_nombre` con collation sin tildes ni mayúsculas | Usa el tipo existente si ya está | — |
 | **RN-44** | Estado `devuelta` y `ck_prendas_devuelta` | Solo desde Pendiente o En proceso, sin dejar la orden sin prendas | Las devueltas no suman al valor |
+| **RN-45** | Columna `correo`, opcional, y `uq_usuarios_correo` | Entra solo si el correo que Google da por verificado ya está en una usuaria; no crea usuaria ni negocio | — |
+| **RN-46** | Columna `mensaje`, que guarda el texto enviado | Arma el saludo de usted con el nombre del negocio, el número, las prendas listas y el saldo solo si lo hay | — |
+| **RN-47** | Zona horaria de la conexión (RN-09) | El saludo sale de la hora del taller, no de la del servidor | El panel saluda según la hora de Colombia |
 
 ## Índices y volumen
 
@@ -314,7 +318,7 @@ Laravel crea además tablas técnicas que no forman parte del modelo del negocio
 
 <!-- verificacion:inicio -->
 
-Resultado de `python scripts/verificar_modelo.py` sobre MySQL 8.4.7: **17 de 17 consultas** dan las cifras de los mockups y **32 de 32 pruebas** de restricciones se comportan como exigen las reglas.
+Resultado de `python scripts/verificar_modelo.py` sobre MySQL 8.4.11: **17 de 17 consultas** dan las cifras de los mockups y **32 de 32 pruebas** de restricciones se comportan como exigen las reglas.
 
 ### Consultas de referencia
 

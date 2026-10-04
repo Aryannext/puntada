@@ -1,8 +1,8 @@
 # Diccionario de datos
 
-**Generado** por `scripts/verificar_modelo.py` desde la base de datos real creada con [esquema.sql](esquema.sql) en MySQL 8.4.7. No se edita a mano: se cambia el esquema y se vuelve a generar.
+**Generado** por `scripts/verificar_modelo.py` desde la base de datos real creada con [esquema.sql](esquema.sql) en MySQL 8.4.11. No se edita a mano: se cambia el esquema y se vuelve a generar.
 
-**10 tablas** · **79 columnas** · **12 llaves foráneas** · **22 restricciones CHECK**. Juego de caracteres `utf8mb4` con collation `utf8mb4_0900_ai_ci`.
+**10 tablas** · **80 columnas** · **12 llaves foráneas** · **22 restricciones CHECK**. Juego de caracteres `utf8mb4` con collation `utf8mb4_0900_ai_ci`.
 
 Claves: **PK** llave primaria · **FK** llave foránea · **UK** parte de una clave única.
 
@@ -37,6 +37,7 @@ Persona del negocio que usa el sistema; hoy, la dueña del taller
 | `negocio_id` | `bigint unsigned` | No | — | FK | Negocio al que pertenece; solo ve la información de ese negocio (RN-01) |
 | `nombre` | `varchar(120)` | No | — | — | Nombre de la persona |
 | `usuario` | `varchar(60)` | No | — | UK | Nombre con el que inicia sesión; único en todo el sistema |
+| `correo` | `varchar(255)` | Sí | — | UK | Correo de Google con el que entra, si lo tiene; único en todo el sistema (RN-45) |
 | `contrasena` | `varchar(255)` | No | — | — | Hash de la contraseña, nunca el texto plano (RNF-19) |
 | `token_recordar` | `varchar(100)` | Sí | — | — | Token de la sesión recordada en el dispositivo |
 | `creado_en` | `datetime` | No | CURRENT_TIMESTAMP | — | Fecha y hora de registro |
@@ -45,6 +46,7 @@ Persona del negocio que usa el sistema; hoy, la dueña del taller
 **Índices**
 
 - `PRIMARY`: llave primaria sobre (id)
+- `uq_usuarios_correo`: único sobre (correo)
 - `uq_usuarios_usuario`: único sobre (usuario)
 - `ix_usuarios_negocio`: índice sobre (negocio_id)
 
