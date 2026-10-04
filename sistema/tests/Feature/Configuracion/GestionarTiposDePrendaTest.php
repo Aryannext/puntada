@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
- * HU-16 · Renombrar o dejar de usar un tipo de prenda (RN-01, RN-10, RN-43).
+ * HU-16 · Agregar, renombrar o dejar de usar un tipo de prenda (RN-01, RN-10, RN-43).
  * Los datos se crean antes de iniciar sesión, porque al crear se asigna el negocio de la sesión.
  */
 class GestionarTiposDePrendaTest extends TestCase
@@ -79,6 +79,29 @@ class GestionarTiposDePrendaTest extends TestCase
         $this->assertTrue($chaqueta->fresh()->activo);
         $this->get(route('ordenes.nueva'))->assertSee('Chaqueta');
         $this->assertTrue($camisa->fresh()->activo);
+    }
+
+    public function test_ca_16_3_agregar(): void
+    {
+        $this->tipo('Camisa');
+        $this->actingAs($this->duena);
+
+        $this->get(route('ajustes'))->assertOk()->assertSee('Agregar un tipo');
+
+        $this->post(route('ajustes.tipos.agregar'), ['nombre' => 'Overol'])
+            ->assertSessionHasNoErrors()
+            ->assertRedirect(route('ajustes'));
+
+        // Queda activo, en el negocio de la dueña, y se ofrece al registrar una prenda nueva
+        $overol = TipoPrenda::where('nombre', 'Overol')->sole();
+        $this->assertTrue($overol->activo);
+        $this->assertSame($this->duena->negocio_id, $overol->negocio_id);
+        $this->get(route('ordenes.nueva'))->assertOk()->assertSee('Overol');
+
+        // RN-43: dos tipos del mismo negocio no se llaman igual
+        $this->from(route('ajustes'))->post(route('ajustes.tipos.agregar'), ['nombre' => 'Camisa'])
+            ->assertSessionHasErrors(['nombre' => 'Ya existe un tipo de prenda con ese nombre.']);
+        $this->assertSame(2, TipoPrenda::where('negocio_id', $this->duena->negocio_id)->count());
     }
 
     public function test_rn_43_dos_tipos_del_negocio_no_se_llaman_igual(): void

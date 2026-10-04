@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature\Http;
+namespace Tests\Feature\Configuracion;
 
 use App\Modelos\Aviso;
 use App\Modelos\Cliente;
 use App\Modelos\Orden;
 use App\Modelos\Prenda;
-use App\Modelos\TipoPrenda;
 use App\Modelos\Usuario;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,7 +14,7 @@ use Tests\TestCase;
  * HU-38 · El nombre del taller y el de la usuaria, que antes ponía el instalador (RF-43, RN-46, RN-47).
  * Los datos se crean antes de iniciar sesión, porque al crear se asigna el negocio de la sesión.
  */
-class AjustesControllerTest extends TestCase
+class PersonalizarTallerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -129,28 +128,5 @@ class AjustesControllerTest extends TestCase
 
         $this->assertSame('Arreglos Donde Rosa', $otraDuena->negocio->fresh()->nombre);
         $this->assertSame('Otra dueña', $otraDuena->fresh()->nombre);
-    }
-
-    public function test_ca_16_3_agregar(): void
-    {
-        TipoPrenda::factory()->create(['negocio_id' => $this->duena->negocio_id, 'nombre' => 'Camisa']);
-        $this->actingAs($this->duena);
-
-        $this->get(route('ajustes'))->assertOk()->assertSee('Agregar un tipo');
-
-        $this->post(route('ajustes.tipos.agregar'), ['nombre' => 'Overol'])
-            ->assertSessionHasNoErrors()
-            ->assertRedirect(route('ajustes'));
-
-        // Aparece al registrar una prenda nueva
-        $overol = TipoPrenda::where('nombre', 'Overol')->sole();
-        $this->assertTrue($overol->activo);
-        $this->assertSame($this->duena->negocio_id, $overol->negocio_id);
-        $this->get(route('ordenes.nueva'))->assertOk()->assertSee('Overol');
-
-        // RN-43: dos tipos del mismo negocio no se llaman igual
-        $this->from(route('ajustes'))->post(route('ajustes.tipos.agregar'), ['nombre' => 'Camisa'])
-            ->assertSessionHasErrors(['nombre' => 'Ya existe un tipo de prenda con ese nombre.']);
-        $this->assertSame(2, TipoPrenda::count());
     }
 }
