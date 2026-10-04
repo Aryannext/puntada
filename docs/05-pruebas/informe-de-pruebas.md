@@ -1,6 +1,6 @@
 # Informe de pruebas
 
-**Entregable:** DOC-21 · **Corte:** 23 de septiembre de 2026 · **Commit:** `bf2a64b` · **Estado:** en curso, se completa en el cierre
+**Entregable:** DOC-21 · **Corte:** 4 de octubre de 2026 · **Commit:** `49970bb` · **Estado:** en curso, se completa en el cierre
 
 Dice qué se probó, con qué resultado y qué falta. Sigue el [plan de pruebas](plan-de-pruebas.md), que es quien define la estrategia, los criterios de salida y los protocolos.
 
@@ -17,8 +17,8 @@ Dice qué se probó, con qué resultado y qué falta. Sigue el [plan de pruebas]
 | **Reglas de negocio** | **47 de 47 con prueba que pasa** |
 | **Historias Must** | **26 de 26 verificadas**, y también las 10 *Should* y las 2 *Could*: **las 38 del backlog** |
 | **Pruebas manuales** | 6 de 8 ejecutadas: PM-02, PM-04 y PM-08 aprobadas; PM-05, PM-06 y PM-07 parciales; faltan PM-01 y PM-03 |
-| **Defectos abiertos** | **Ninguno.** Los 10 encontrados se corrigieron; los cuatro últimos los halló PM-07, y uno de ellos lo causó la corrección de otro |
-| **GitHub Actions en `main`** | En verde |
+| **Defectos abiertos** | **Ninguno.** Los 13 encontrados se corrigieron; los tres últimos salieron al revisar el proyecto el 4 de octubre, y uno lo trajo un aviso de seguridad publicado después del último commit |
+| **GitHub Actions en `main`** | En verde. Estuvo en rojo del 23 de septiembre al 4 de octubre: el esquema documentado se quedó sin la columna que agregó HU-37 y ese paso corta la corrida antes de las pruebas (defecto 11) |
 
 **Lo que falta para poder entregar:** PM-01 (usabilidad, necesita compañeros), PM-03 (instalación, necesita otra persona y otra máquina), lo que queda de PM-07 (la prueba de humo y dos revisiones a mano), las secciones A, B y C de PM-05 y la medición de Lighthouse de PM-06.
 
@@ -132,6 +132,9 @@ Ninguno abierto. Los que se encontraron al probar se corrigieron y quedaron cubi
 | **La política de tratamiento de datos no existía**, aunque su ruta estaba especificada desde el Sprint 2 | PM-07, D | Media | Se escribió y se publicó, enlazada desde el inicio de sesión, con su prueba automática (`f086f13`) |
 | **Los errores salían con la página cruda del servidor**: un «404 Not Found» en inglés, sin decir qué hacer, contra lo que pide RNF-09 | PM-07, A05 | Baja | Se escribieron las pantallas de error del taller (404, 403, 419, 429, 500 y 503), cada una con su explicación y su salida, y su prueba |
 | **La política de contenido dejó sin iconos a toda la app.** La corrección anterior de RNF-23 no permitía imágenes `data:`, y los iconos son SVG escritos dentro de la hoja de estilos | Al revisar en el navegador la pantalla de error recién desplegada | Media | Se permitió `data:` en `img-src`, que no deja ejecutar código, y se escribió una prueba que compara la política con lo que la hoja de estilos carga de verdad (`9b711de`) |
+| **Las migraciones dejaron de producir el esquema documentado.** La columna `correo` que agregó HU-37 nunca llegó a `esquema.sql`; el paso de RNF-31 falló en cada envío desde el 23 de septiembre y, por ir antes que las pruebas, la suite no corrió en GitHub Actions durante once días | Revisión del 4 de octubre | Media | Se regeneraron el esquema, el diccionario y el diagrama entidad-relación; RN-45, RN-46 y RN-47 recibieron su fila en «Dónde se garantiza cada regla», que `verificar_modelo.py` exige (`b0ba479`) |
+| **El plan contaba 168 de 179 pruebas escritas** mientras este informe decía que estaban todas: seis pruebas vivían en una clase distinta de la que nombra su criterio, así que el plan no las encontraba | Revisión del 4 de octubre | Baja | Se movieron a la clase que les corresponde —`EntrarConGoogle`, `PersonalizarTaller`, `GestionarTiposDePrenda` y `DetalleDeOrden`— y el plan cuenta 179 de 179 (`49970bb`) |
+| **`league/commonmark` 2.10.1 quedó con dos avisos de seguridad**, uno de severidad alta por denegación de servicio en las tablas de Markdown, publicados el 30 de septiembre | Revisión de dependencias de GitHub Actions | Alta | Subió a 2.10.3, que no tiene ninguno (`49970bb`) |
 
 **Comportamiento revisado y declarado sin defecto:** en PM-05, al cerrar sesión y usar «Atrás» y «Adelante», el navegador muestra la pantalla de inicio de sesión y no datos del taller. Se comprobó en los registros del servidor que toda página con datos responde con una redirección al inicio de sesión (CA-01.4).
 
