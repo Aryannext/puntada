@@ -118,6 +118,8 @@ def pagina(titulo: str, raiz: str, menu: str, contenido: str, pie: str) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(titulo)} · Portal de Puntada</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700;800&amp;family=Atkinson+Hyperlegible+Mono:wght@500;700&amp;display=swap">
 <link rel="stylesheet" href="{raiz}recursos/estilos.css">
 </head>
 <body>
@@ -129,7 +131,12 @@ def pagina(titulo: str, raiz: str, menu: str, contenido: str, pie: str) -> str:
   </div>
 </header>
 <div class="cuerpo">
-  <nav class="menu" aria-label="Secciones">{menu}</nav>
+  <nav class="menu" aria-label="Secciones">
+    <details class="menu-caja">
+      <summary>Secciones del proyecto</summary>
+      <div class="menu-lista">{menu}</div>
+    </details>
+  </nav>
   <main class="contenido">{contenido}</main>
 </div>
 <footer class="pie">{pie}</footer>

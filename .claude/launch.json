@@ -4,20 +4,49 @@
     {
       "name": "docs",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "docs"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "docs"
+      ],
       "port": 8765
     },
     {
       "name": "sistema",
       "runtimeExecutable": "C:\\wamp64\\bin\\php\\php8.4.15\\php.exe",
-      "runtimeArgs": ["sistema/artisan", "serve", "--host=127.0.0.1", "--port=8000"],
+      "runtimeArgs": [
+        "sistema/artisan",
+        "serve",
+        "--host=127.0.0.1",
+        "--port=8000"
+      ],
       "port": 8000
     },
     {
       "name": "sistema-con-datos",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["scripts/servidor_de_prueba.py"],
+      "runtimeArgs": [
+        "scripts/servidor_de_prueba.py"
+      ],
       "port": 8000
+    },
+    {
+      "name": "portal",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8766",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "portal"
+      ],
+      "port": 8766
     }
   ]
 }

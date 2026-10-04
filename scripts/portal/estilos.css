@@ -13,8 +13,8 @@
   --aviso: #8a4b00; --aviso-suave: #fcefd7;
   --peligro: #b3261e; --peligro-suave: #fbe7e5;
   --radio: 12px;
-  --fuente: system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --fuente: "Atkinson Hyperlegible Next", system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -76,8 +76,13 @@ img { max-width: 100%; }
 .texto > :first-child { margin-top: 0; }
 .texto > :last-child { margin-bottom: 0; }
 .texto table, .tabla { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14.5px; display: block; overflow-x: auto; }
-.texto th, .texto td, .tabla th, .tabla td { padding: 7px 10px; border: 1px solid var(--borde); text-align: left; vertical-align: top; }
-.texto th, .tabla th { background: var(--fondo); }
+.texto th, .texto td, .tabla th, .tabla td { padding: 10px 12px; border: 0; border-bottom: 1px solid var(--borde); text-align: left; vertical-align: top; }
+.texto th, .tabla th {
+  background: transparent; border-bottom: 2px solid var(--borde);
+  color: var(--tinta-2); font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase;
+}
+.texto tbody tr:hover, .tabla tbody tr:hover { background: var(--primario-suave); }
+.texto tbody tr:last-child td, .tabla tbody tr:last-child td { border-bottom: 0; }
 .texto blockquote { margin: 12px 0; padding: 4px 16px; border-left: 4px solid var(--primario); background: var(--fondo); }
 .texto pre { overflow-x: auto; padding: 12px; background: var(--fondo); border-radius: 8px; }
 dl.campos { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 18px; margin: 0; }
@@ -131,6 +136,23 @@ pre.mermaid { background: none; }
 .recorrido p { margin: 2px 0 0; color: var(--tinta-2); font-size: 15px; }
 
 .pie { max-width: 1280px; margin: 0 auto; padding: 0 20px 40px; color: var(--tinta-2); font-size: 13px; }
+
+
+/* El menú se pliega en pantalla angosta. Abierto ocupaba 1.600 px y empujaba el contenido */
+.menu-caja > summary {
+  display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none;
+  padding: 10px 14px; background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: var(--radio); font-weight: 700; color: var(--primario);
+}
+.menu-caja > summary::-webkit-details-marker { display: none; }
+.menu-caja > summary::before { content: "☰"; font-size: 18px; line-height: 1; }
+.menu-caja[open] > summary { margin-bottom: 12px; }
+.menu-caja[open] > summary::before { content: "✕"; }
+
+@media (min-width: 861px) {
+  .menu-caja > summary { display: none; }
+  .menu-caja > .menu-lista { display: block; }
+}
 
 @media (max-width: 860px) {
   .cuerpo { grid-template-columns: 1fr; padding-top: 16px; }
