@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="pantalla" content="PT-23">
-<meta name="historias" content="HU-02, HU-35, HU-16, HU-01">
-<meta name="criterios" content="CA-02.1, CA-35.1, CA-16.2, CA-01.4">
+<meta name="historias" content="HU-38, HU-02, HU-35, HU-16, HU-01">
+<meta name="criterios" content="CA-38.1, CA-38.2, CA-02.1, CA-35.1, CA-16.2, CA-16.3, CA-01.4">
 <title>PT-23 · Ajustes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700;800&family=Atkinson+Hyperlegible+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="estilos.css">
@@ -18,6 +18,23 @@
   </header>
 
   <main class="contenido">
+    <section class="seccion">
+      <h2 class="titulo-seccion">Mi taller</h2>
+      <div class="tarjeta pila">
+        <div class="campo">
+          <label for="nombre-taller">Nombre del taller</label>
+          <input class="entrada" id="nombre-taller" value="Modistería Inés">
+          <span class="ayuda">Así te nombran los avisos que reciben tus clientes.</span>
+        </div>
+        <div class="campo">
+          <label for="nombre-usuaria">Mi nombre</label>
+          <input class="entrada" id="nombre-usuaria" value="Inés">
+          <span class="ayuda">Con este nombre te saluda la pantalla Hoy.</span>
+        </div>
+        <button class="btn btn-secundario">Guardar</button>
+      </div>
+    </section>
+
     <section class="seccion">
       <h2 class="titulo-seccion">Contraseña</h2>
       <div class="tarjeta">
@@ -51,6 +68,14 @@
         <li class="fila"><span class="principal"><span class="nombre texto-2">Chaqueta</span><span class="detalle">No aparece al registrar prendas nuevas</span></span><span class="chip chip-descartado">Desactivado</span><button class="btn btn-texto btn-pequeno">Activar</button></li>
         <li class="fila"><span class="principal"><span class="nombre">Overol</span><span class="detalle">Agregado con «Otro»</span></span><button class="btn btn-texto btn-pequeno">Editar</button></li>
       </ul>
+      <div class="tarjeta pila pila-junta">
+        <label class="etiqueta" for="tipo-nuevo">Agregar un tipo</label>
+        <div class="fila-campo">
+          <input class="entrada crece" id="tipo-nuevo" placeholder="Overol, sudadera, cortina…">
+          <button class="btn btn-secundario btn-pequeno"><i class="i i-mas i-sm"></i>Agregar</button>
+        </div>
+      </div>
+      <p class="texto-2 pequeno">Al dejar de usar un tipo, las prendas que ya lo tienen lo conservan; solo deja de ofrecerse al registrar.</p>
     </section>
 
     <a class="btn btn-peligro-borde" href="pt-01-iniciar-sesion.html"><i class="i i-salir"></i>Cerrar sesión</a>

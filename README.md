@@ -1,6 +1,6 @@
 # Puntada
 
-> Nombre temporal del proyecto, mientras se define el definitivo.
+> El sistema se llamó **El-taller-ines** mientras se construía, con el nombre anotado como temporal desde el primer día. El definitivo se decidió al cerrar el desarrollo: [por qué **Puntada**](docs/01-problema/idea-de-negocio.md).
 
 Sistema de gestión para un taller de arreglos de costura en Florencia, Caquetá: clientes, órdenes de trabajo, prendas, pagos y avisos de entrega.
 

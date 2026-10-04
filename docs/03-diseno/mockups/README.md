@@ -117,8 +117,8 @@ Estos datos están también en la base de datos de ejemplo ([datos-de-ejemplo.sq
 
 | Código | Pantalla | Historias | Criterios que muestra |
 | --- | --- | --- | --- |
-| **PT-01** | [Iniciar sesión](pt-01-iniciar-sesion.html) | HU-01 | CA-01.2 |
-| **PT-02** | [Panel del día](pt-02-panel-del-dia.html) | HU-32 | CA-32.1, CA-32.2 |
+| **PT-01** | [Iniciar sesión](pt-01-iniciar-sesion.html) | HU-01, HU-37 | CA-01.2, CA-37.1 |
+| **PT-02** | [Panel del día](pt-02-panel-del-dia.html) | HU-32, HU-38 | CA-32.1, CA-32.2, CA-38.3 |
 | **PT-03** | [Clientes](pt-03-clientes.html) | HU-04 | CA-04.1, CA-04.3 |
 | **PT-04** | [Registrar o corregir un cliente](pt-04-registrar-cliente.html) | HU-03, HU-06, HU-10 | CA-03.3, CA-06.3, CA-10.2 |
 | **PT-05** | [Ficha del cliente](pt-05-ficha-cliente.html) | HU-05 | CA-05.1, CA-05.2 |
@@ -139,7 +139,7 @@ Estos datos están también en la base de datos de ejemplo ([datos-de-ejemplo.sq
 | **PT-20** | [Órdenes atrasadas](pt-20-atrasadas.html) | HU-33 | CA-33.1 |
 | **PT-21** | [Órdenes sin reclamar](pt-21-sin-reclamar.html) | HU-34 | CA-34.1 |
 | **PT-22** | [Dinero](pt-22-dinero.html) | HU-26, HU-27 | CA-26.1, CA-27.1 |
-| **PT-23** | [Ajustes](pt-23-ajustes.html) | HU-02, HU-35, HU-16, HU-01 | CA-02.1, CA-35.1, CA-16.2, CA-01.4 |
+| **PT-23** | [Ajustes](pt-23-ajustes.html) | HU-38, HU-02, HU-35, HU-16, HU-01 | CA-38.1, CA-38.2, CA-02.1, CA-35.1, CA-16.2, CA-16.3, CA-01.4 |
 
 ### Galería
 
