@@ -16,11 +16,11 @@ Dice qué se probó, con qué resultado y qué falta. Sigue el [plan de pruebas]
 | **Criterios de aceptación** | **134 de 134 verificados** |
 | **Reglas de negocio** | **47 de 47 con prueba que pasa** |
 | **Historias Must** | **26 de 26 verificadas**, y también las 10 *Should* y las 2 *Could*: **las 38 del backlog** |
-| **Pruebas manuales** | 6 de 8 ejecutadas: PM-02, PM-04 y PM-08 aprobadas; PM-05, PM-06 y PM-07 parciales; faltan PM-01 y PM-03 |
+| **Pruebas manuales** | 6 de 8 ejecutadas: PM-02, PM-04 y PM-08 aprobadas; PM-05 con tres de sus cuatro secciones aprobadas; PM-06 y PM-07 parciales; faltan PM-01 y PM-03 |
 | **Defectos abiertos** | **Ninguno.** Los 13 encontrados se corrigieron; los tres últimos salieron al revisar el proyecto el 4 de octubre, y uno lo trajo un aviso de seguridad publicado después del último commit |
 | **GitHub Actions en `main`** | En verde. Estuvo en rojo del 23 de septiembre al 4 de octubre: el esquema documentado se quedó sin la columna que agregó HU-37 y ese paso corta la corrida antes de las pruebas (defecto 11) |
 
-**Lo que falta para poder entregar:** PM-01 (usabilidad, necesita compañeros), PM-03 (instalación, necesita otra persona y otra máquina), lo que queda de PM-07 (la prueba de humo y dos revisiones a mano), las secciones A, B y C de PM-05 y la medición de Lighthouse de PM-06.
+**Lo que falta para poder entregar:** PM-01 (usabilidad, necesita compañeros), PM-03 (instalación, necesita otra persona y otra máquina), lo que queda de PM-07 (la prueba de humo y dos revisiones a mano), la sección A de PM-05 (necesita un celular real y Edge con interfaz) y la medición de Lighthouse de PM-06.
 
 ## 2. Pruebas automáticas
 
@@ -82,10 +82,10 @@ De los 35, **19 se comprueban solos en cada envío** y están en verde: RNF-02, 
 | **RNF-01** Tiempo de respuesta | [PM-06](pruebas-manuales/PM-06-rendimiento.md): el servidor con el volumen de 3 años, y el tiempo de carga con Lighthouse | **Parcial.** El servidor aprobado: las cinco pantallas entre 8 y 18 veces por debajo del máximo de 500 ms. Falta la medición en el navegador |
 | **RNF-05** Navegadores del taller | [PM-05](pruebas-manuales/PM-05-pantallas-y-navegadores.md), sección A | **Pendiente** |
 | **RNF-06** Un adaptador por canal de WhatsApp | Pruebas de cada adaptador, más una revisión en [PM-08](pruebas-manuales/PM-08-aviso-real-por-whatsapp.md) | **Cumple** |
-| **RNF-07** Diseño para el celular | PM-05, sección B | **Pendiente** |
-| **RNF-09** Mensajes de error | Pruebas automáticas del texto exacto, más la lista de chequeo de PM-05, sección C | **Parcial.** La parte automática cumple. En esta ronda se agregaron las pantallas de error del sistema —404, 403, 419, 429, 500 y 503—, que antes salían con el texto crudo del servidor; falta la revisión de PM-05 |
+| **RNF-07** Diseño para el celular | PM-05, sección B | **Cumple.** Las 22 pantallas con ruta se midieron a 360 px: ninguna se desplaza hacia los lados, y de 215 controles ninguno queda por debajo de 44 × 44 px |
+| **RNF-09** Mensajes de error | Pruebas automáticas del texto exacto, más la lista de chequeo de PM-05, sección C | **Parcial.** La parte automática cumple. En esta ronda se agregaron las pantallas de error del sistema —404, 403, 419, 429, 500 y 503—, que antes salían con el texto crudo del servidor; la sección C de PM-05 se ejecutó el 4 de octubre: de 17 mensajes distintos, ninguno tiene términos técnicos, todos están en español y todos dicen cómo corregir; uno sale como banda al inicio de su sección y no junto al campo, con el motivo declarado |
 | **RNF-10** Confirmación antes de una acción irreversible | Una prueba por acción | **Cumple.** Las cinco acciones tienen su confirmación probada: cancelar una orden, anular un pago, devolver una prenda sin arreglar, eliminar una prenda y eliminar una foto |
-| **RNF-11** Contraste y accesibilidad | PM-05, con Lighthouse | **Pendiente** |
+| **RNF-11** Contraste y accesibilidad | PM-05, con Lighthouse | **Cumple.** Las 22 pantallas obtienen **100 de accesibilidad** en Lighthouse con perfil móvil, contra un mínimo de 90, y las 22 pasan la revisión de contraste |
 | **RNF-12** Usabilidad | [PM-01](pruebas-manuales/PM-01-usabilidad.md) con compañeros | **Pendiente** |
 | **RNF-15** Respaldos y restauración | [PM-02](pruebas-manuales/PM-02-restauracion-de-respaldos.md) | **Aprobado.** Restauración en 7 segundos contra un máximo de 60 minutos |
 | **RNF-17** Un fallo de WhatsApp no deja al cliente sin aviso | `EnviarAvisoTest` con un canal que siempre falla, más el reinicio de la cola en PM-07, sección B | **Cumple.** Los tres reintentos con espera creciente y el paso a envío asistido están probados; y si el trabajador se cae, el servicio lo levanta solo en menos de veinte segundos |
@@ -156,10 +156,10 @@ Del [plan de pruebas](plan-de-pruebas.md#para-entregar):
 
 | Pendiente | Quién lo hace | Cuándo |
 | --- | --- | --- |
+| **PM-05 · Sección A:** las 26 historias Must en Chrome para Android, Chrome y Edge | Aprendiz | Antes del cierre |
 | **PM-01 · Usabilidad** con 3 compañeros; si no se consiguen, se hace con quienes estén y se declara | Aprendiz y compañeros | Antes del 9 de octubre |
 | **PM-03 · Instalación** siguiendo el manual técnico, en otra máquina | Un compañero, con el aprendiz observando | Cierre, 11 al 13 de octubre |
 | **Terminar PM-07:** la prueba de humo y las dos revisiones a mano (A01 y A03) | Aprendiz | Antes del cierre |
-| **PM-05 · Secciones A, B y C** en los tres navegadores | Aprendiz | Antes del cierre |
 | **PM-06 · Lighthouse** en el navegador, para cerrar el tiempo de carga | Aprendiz | Antes del cierre |
 | **Decidir sobre `Strict-Transport-Security`:** vale para todo el dominio, no solo para el sistema | Dueño del dominio | Antes del cierre |
 | **Una corrida completa** de todas las pruebas antes de la sustentación | Aprendiz | Cierre |

@@ -50,7 +50,8 @@ class ServidorExistente:
 
 
 def buscar_php() -> str:
-    candidatos = [os.environ.get("PHP"), shutil.which("php")]
+    # «local/» es el entorno portátil de la máquina de desarrollo; en otro clon no existe y se sigue de largo
+    candidatos = [os.environ.get("PHP"), str(RAIZ / "local" / "runtime" / "php" / "php.exe"), shutil.which("php")]
     candidatos += sorted(glob.glob("C:/wamp64/bin/php/php8.4*/php.exe"), reverse=True)
     for candidato in candidatos:
         if candidato and Path(candidato).exists():

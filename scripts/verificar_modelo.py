@@ -136,7 +136,7 @@ ETIQUETAS_RELACION = {
 
 
 def buscar_mysqld(ruta: str | None) -> str:
-    candidatos = [ruta, os.environ.get("MYSQLD")]
+    candidatos = [ruta, os.environ.get("MYSQLD"), str(RAIZ / "local" / "runtime" / "mysql" / "bin" / "mysqld.exe")]
     candidatos += sorted(glob.glob("C:/wamp64/bin/mysql/mysql8.4*/bin/mysqld.exe"), reverse=True)
     candidatos.append(shutil.which("mysqld"))
     for candidato in candidatos:
