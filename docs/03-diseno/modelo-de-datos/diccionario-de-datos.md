@@ -2,7 +2,7 @@
 
 **Generado** por `scripts/verificar_modelo.py` desde la base de datos real creada con [esquema.sql](esquema.sql) en MySQL 8.4.11. No se edita a mano: se cambia el esquema y se vuelve a generar.
 
-**10 tablas** · **80 columnas** · **12 llaves foráneas** · **22 restricciones CHECK**. Juego de caracteres `utf8mb4` con collation `utf8mb4_0900_ai_ci`.
+**10 tablas** · **84 columnas** · **12 llaves foráneas** · **24 restricciones CHECK**. Juego de caracteres `utf8mb4` con collation `utf8mb4_0900_ai_ci`.
 
 Claves: **PK** llave primaria · **FK** llave foránea · **UK** parte de una clave única.
 
@@ -15,17 +15,24 @@ Taller que usa el sistema. En esta entrega hay uno solo (ADR-002)
 | `id` | `bigint unsigned` | No | auto_increment | PK | Identificador del negocio |
 | `nombre` | `varchar(120)` | No | — | — | Nombre del taller |
 | `dias_sin_reclamar` | `smallint unsigned` | No | 30 | — | Días en Lista para entregar después de los cuales una orden queda sin reclamar, entre 1 y 365 (RN-35) |
+| `wa_instancia` | `varchar(60)` | Sí | — | UK | Nombre de la sesión de WhatsApp de este negocio en la pasarela; única en todo el sistema (RN-48) |
+| `wa_numero` | `char(10)` | Sí | — | — | Número de WhatsApp que quedó conectado, como lo informa WhatsApp al vincular (RN-48) |
+| `wa_estado` | `enum('sin_conectar','esperando','conectado')` | No | sin_conectar | — | En qué va la conexión del WhatsApp del negocio (RN-48) |
+| `wa_conectado_en` | `datetime` | Sí | — | — | Fecha y hora en que quedó conectado |
 | `creado_en` | `datetime` | No | CURRENT_TIMESTAMP | — | Fecha y hora de registro |
 | `actualizado_en` | `datetime` | No | CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP | — | Fecha y hora del último cambio |
 
 **Índices**
 
 - `PRIMARY`: llave primaria sobre (id)
+- `uq_negocios_wa_instancia`: único sobre (wa_instancia)
 
 **Restricciones CHECK**
 
 - `ck_negocios_dias_sin_reclamar`: `dias_sin_reclamar between 1 and 365`
 - `ck_negocios_nombre`: `char_length(trim(nombre)) > 0`
+- `ck_negocios_wa_conectado`: `wa_estado = 'conectado') = ((wa_numero is not null) and (wa_conectado_en is not null`
+- `ck_negocios_wa_numero`: `wa_numero is null) or regexp_like(wa_numero,'^3[0-9]{9}$'`
 
 ## `usuarios`
 

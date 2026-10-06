@@ -298,9 +298,27 @@ El botón **Entregar** solo aparece si hay algo terminado.
 
 ## 11. Avisar al cliente por WhatsApp
 
-**El aviso sale solo.** Cuando una orden queda lista, el sistema le escribe al cliente por WhatsApp desde el número del taller:
+### Primero, conecta tu WhatsApp
 
-> Hola Marta, tu orden #0042 del taller está lista para recoger. Prendas listas: 3. Saldo pendiente: $21.000. Te esperamos.
+Para que los avisos salgan **desde el número de tu taller**, conéctalo una sola vez:
+
+1. Entra a **Ajustes**, la tuerquita de arriba, y busca **WhatsApp del taller**.
+2. Toca **Conectar mi WhatsApp**. Aparece un código en la pantalla.
+3. En tu celular abre WhatsApp, toca los **tres puntos** de arriba y entra a **Dispositivos vinculados**.
+4. Toca **Vincular un dispositivo** y apunta la cámara al código.
+5. Vuelve a Ajustes: verás **Conectado** y tu número.
+
+Es lo mismo que hacer WhatsApp Web, y por eso no se escribe el número: sale del celular que escanea, así no hay forma de equivocarse. Puedes **desconectarlo** cuando quieras, en esa misma pantalla.
+
+**Mientras no lo conectes, no se pierde ningún aviso:** quedan en «Avisos por enviar» para que los mandes tú con un toque, como se explica más abajo.
+
+### El aviso sale solo
+
+Cuando una orden queda lista, el sistema le escribe al cliente por WhatsApp desde tu número:
+
+> Hola Marta, le escribimos de Modistería Inés. Su orden #0042 ya está lista 🧵 Son 3 prendas, con un saldo de $21.000. La esperamos cuando pueda pasar.
+
+El mensaje lo trata de usted y dice el nombre que le pusiste a tu taller en Ajustes. Si la orden ya está pagada, en vez del saldo dice que solo tiene que pasar a recogerla.
 
 En el detalle de la orden, en **Avisos al cliente**, ves cada aviso y qué pasó con él: **Enviado**, **En cola** (sale en unos minutos), **Por enviar** o **Descartado** (la orden dejó de estar lista antes de enviarlo).
 

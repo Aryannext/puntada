@@ -14,7 +14,7 @@ La columna **Prueba** se completa en el Sprint 3, cuando cada criterio de acepta
 
 | Causas | Medios | Objetivos | Requisitos funcionales | Reglas | Historias | Criterios | Requisitos no funcionales |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 11 | 11 | 6 | 43 | 47 | 38 | 134 | 35 |
+| 11 | 11 | 6 | 44 | 48 | 39 | 139 | 35 |
 
 ## Verificación
 
@@ -29,8 +29,8 @@ La columna **Prueba** se completa en el Sprint 3, cuando cada criterio de acepta
 | Reglas de negocio citadas por un requisito funcional | Cumple | — |
 | Reglas de negocio citadas por una historia | Cumple | — |
 | Historias con criterios de aceptación | Cumple | — |
-| Historias que nombran la causa o el efecto del que nacen | No cumple | HU-37, HU-38 |
-| Requisitos no funcionales exigidos en alguna historia | Informativo | RNF-01, RNF-02, RNF-05, RNF-06, RNF-07, RNF-08, RNF-11, RNF-15, RNF-16, RNF-18, RNF-23, RNF-24, RNF-26, RNF-27, RNF-28, RNF-29, RNF-30, RNF-31, RNF-32, RNF-33, RNF-34, RNF-35 |
+| Historias que nombran la causa o el efecto del que nacen | No cumple | HU-37, HU-38, HU-39 |
+| Requisitos no funcionales exigidos en alguna historia | Informativo | RNF-01, RNF-02, RNF-05, RNF-07, RNF-08, RNF-11, RNF-15, RNF-16, RNF-18, RNF-23, RNF-24, RNF-26, RNF-27, RNF-28, RNF-29, RNF-30, RNF-31, RNF-32, RNF-33, RNF-34, RNF-35 |
 
 ## 1. Del problema a los objetivos
 
@@ -99,6 +99,7 @@ De qué causa, medio y objetivo nace cada requisito, qué reglas debe cumplir y 
 | RF-41 | Should | C-02, C-02.1, C-04, C-04.1 | M-02, M-02.1, M-04, M-04.1 | OE-02, OE-04 | RN-12, RN-16, RN-26, RN-44 | HU-36 | 5 | Sprint 3 |
 | RF-42 | Should | — | — | Soporte | RN-01, RN-45 | HU-37 | 4 | Sprint 3 |
 | RF-43 | Should | — | — | Soporte | RN-01, RN-46, RN-47 | HU-38 | 4 | Sprint 3 |
+| RF-44 | Should | — | — | Soporte | RN-01, RN-40, RN-48 | HU-39 | 5 | Sprint 3 |
 
 ## 3. Historias de usuario
 
@@ -144,6 +145,7 @@ De qué causa o efecto nace cada historia y qué requisitos, reglas y requisitos
 | HU-36 | Devolver una prenda sin arreglar | EP-05 | Dueña del taller | C-04.1, E-01 | RF-41 | RN-12, RN-16, RN-26, RN-44 | RNF-10 | Should | 2 | 5 | Sprint 3 |
 | HU-37 | Entrar con mi correo de Google | EP-01 | Dueña del taller | — | RF-42 | RN-01, RN-45 | RNF-19, RNF-20 | Should | 3 | 4 | Sprint 3 |
 | HU-38 | Ponerle a mi taller su nombre, y el mío | EP-01 | Dueña del taller | — | RF-43 | RN-01, RN-46, RN-47 | RNF-09, RNF-12 | Should | 2 | 4 | Sprint 3 |
+| HU-39 | Avisar a mis clientes desde el WhatsApp de mi taller | EP-01 | Dueña del taller | — | RF-44 | RN-01, RN-40, RN-48 | RNF-06, RNF-12, RNF-17 | Should | 5 | 5 | Sprint 3 |
 
 ## 4. Reglas de negocio
 
@@ -151,7 +153,7 @@ Origen de cada regla y qué requisitos e historias la hacen cumplir.
 
 | Regla | Nombre | Tipo | Origen | Requisitos | Historias | Prueba |
 | --- | --- | --- | --- | --- | --- | --- |
-| RN-01 | La información pertenece a un negocio | Restricción | ADR-002 | RF-01, RF-05, RF-17, RF-42, RF-43 | HU-01, HU-04, HU-14, HU-16, HU-37, HU-38 | Sprint 3 |
+| RN-01 | La información pertenece a un negocio | Restricción | ADR-002 | RF-01, RF-05, RF-17, RF-42, RF-43, RF-44 | HU-01, HU-04, HU-14, HU-16, HU-37, HU-38, HU-39 | Sprint 3 |
 | RN-02 | Datos mínimos de un cliente | Restricción | F-01, M-01 | RF-04, RF-07, RF-10 | HU-03, HU-06, HU-10 | Sprint 3 |
 | RN-03 | El teléfono debe poder recibir WhatsApp | Restricción | ADR-003, F-05, M-03 | RF-04, RF-07, RF-10 | HU-03, HU-06, HU-10 | Sprint 3 |
 | RN-04 | El teléfono no es único | Estructural | F-01 | RF-04 | HU-03 | Sprint 3 |
@@ -190,7 +192,7 @@ Origen de cada regla y qué requisitos e historias la hacen cumplir.
 | RN-37 | Al quedar lista la orden se genera su aviso | Desencadenador | ADR-003, C-03, F-01, M-03 | RF-32 | HU-28 | Sprint 3 |
 | RN-38 | Un solo aviso por cada vez que la orden queda lista | Restricción | F-01, M-03 | RF-32 | HU-28, HU-30 | Sprint 3 |
 | RN-39 | No se avisa una orden que ya no está lista | Restricción | F-02, M-03 | RF-35 | HU-30 | Sprint 3 |
-| RN-40 | Canal del aviso | Restricción | ADR-003, M-03 | RF-33, RF-34, RF-37 | HU-28, HU-29, HU-32 | Sprint 3 |
+| RN-40 | Canal del aviso | Restricción | ADR-003, M-03 | RF-33, RF-34, RF-37, RF-44 | HU-28, HU-29, HU-32, HU-39 | Sprint 3 |
 | RN-41 | Constancia de cada aviso | Estructural | F-01, M-03, OE-03 | RF-14, RF-34, RF-36 | HU-14, HU-28, HU-29, HU-31 | Sprint 3 |
 | RN-42 | El aviso usa los datos del momento del envío | Restricción | F-01, F-02, M-03 | RF-33, RF-34 | HU-28, HU-29 | Sprint 3 |
 | RN-43 | Tipo de prenda escrito por la usuaria | Desencadenador | F-05, M-01.1 | RF-16, RF-17 | HU-09, HU-16 | Sprint 3 |
@@ -198,6 +200,7 @@ Origen de cada regla y qué requisitos e historias la hacen cumplir.
 | RN-45 | Solo entra un correo ya registrado | Restricción | ADR-002, F-05 | RF-42 | HU-37 | Sprint 3 |
 | RN-46 | Lo que dice el aviso | Estructural | F-05, M-03 | RF-43 | HU-38 | Sprint 3 |
 | RN-47 | El saludo cambia con la hora | Derivación | F-05 | RF-43 | HU-38 | Sprint 3 |
+| RN-48 | Cada taller avisa desde su propio WhatsApp | Restricción | ADR-003, ADR-007 | RF-44 | HU-39 | Sprint 3 |
 
 ## 5. Requisitos no funcionales
 
@@ -210,18 +213,18 @@ Los que aparecen en historias se prueban con ellas; los demás se verifican sobr
 | RNF-03 | Las fotos se reducen antes de guardarse | Eficiencia de desempeño | HU-17 | Prueba automática que sube una foto de 5 MB y revisa lo guardado |
 | RNF-04 | Registrar una orden o cambiar un estado no espera a WhatsApp | Eficiencia de desempeño | HU-28 | Prueba automática con un canal de aviso simulado que tarda 10 s (ADR-003) |
 | RNF-05 | El sistema funciona en los navegadores del taller | Compatibilidad | — | Lista de chequeo manual en cada navegador antes de la entrega |
-| RNF-06 | La integración con WhatsApp pasa por un solo adaptador por canal | Compatibilidad | — | Revisión de código, pruebas de cada adaptador con respuestas simuladas y un envío real por Evolution API (ADR-003, ADR-007) |
+| RNF-06 | La integración con WhatsApp pasa por un solo adaptador por canal | Compatibilidad | HU-39 | Revisión de código, pruebas de cada adaptador con respuestas simuladas y un envío real por Evolution API (ADR-003, ADR-007) |
 | RNF-07 | El diseño es primero para el celular | Usabilidad | — | Revisión de cada pantalla a 360 px |
 | RNF-08 | Los datos se muestran como se leen en Colombia | Usabilidad | — | Pruebas automáticas de formato |
 | RNF-09 | Los errores dicen qué pasó y cómo corregirlo | Usabilidad | HU-38 | Revisión de todos los mensajes contra una lista de chequeo |
 | RNF-10 | Las acciones que no se pueden deshacer piden confirmación | Usabilidad | HU-13, HU-19, HU-22, HU-25, HU-36 | Pruebas automáticas de cada acción |
 | RNF-11 | El sistema es accesible | Usabilidad | — | Auditoría con Lighthouse en cada pantalla |
-| RNF-12 | Registrar una orden es rápido para alguien que no conoce el sistema | Usabilidad | HU-38 | Prueba de usabilidad con 3 compañeros de formación, con su registro |
+| RNF-12 | Registrar una orden es rápido para alguien que no conoce el sistema | Usabilidad | HU-38, HU-39 | Prueba de usabilidad con 3 compañeros de formación, con su registro |
 | RNF-13 | Las operaciones que tocan varios datos se hacen completas o no se hacen | Fiabilidad | HU-07, HU-24 | Pruebas automáticas que fuerzan un error a mitad de la operación y revisan la base |
 | RNF-14 | Enviar dos veces el mismo formulario no duplica registros | Fiabilidad | HU-23 | Prueba automática que envía dos veces la misma solicitud (F-02) |
 | RNF-15 | La información se respalda y se puede recuperar | Fiabilidad | — | Restauración probada al menos una vez antes de la entrega, con su registro; copia semanal visible en Google Drive |
 | RNF-16 | El sistema está disponible en el horario del taller | Fiabilidad | — | Monitor externo que revisa el sistema cada 5 minutos desde el despliegue |
-| RNF-17 | Un fallo de WhatsApp no deja al cliente sin aviso | Fiabilidad | HU-28 | Prueba automática con un canal que siempre falla |
+| RNF-17 | Un fallo de WhatsApp no deja al cliente sin aviso | Fiabilidad | HU-28, HU-39 | Prueba automática con un canal que siempre falla |
 | RNF-18 | Toda la comunicación va cifrada | Seguridad | — | Revisión de la configuración del servidor y solicitud de prueba por HTTP |
 | RNF-19 | Las contraseñas no se pueden leer | Seguridad | HU-02, HU-37 | Prueba automática del registro y cambio de contraseña |
 | RNF-20 | Se limitan los intentos de adivinar una contraseña | Seguridad | HU-01, HU-37 | Prueba automática con 6 intentos fallidos |

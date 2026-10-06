@@ -6,13 +6,14 @@ use App\Aplicacion\Avisos\GenerarAviso;
 use App\Aplicacion\Consultas\AvisosPorEnviar;
 use App\Aplicacion\Consultas\FotosDeOrden;
 use App\Dominio\Acceso\IdentidadDeGoogle;
-use App\Dominio\Avisos\CanalDeAviso;
+use App\Dominio\Avisos\CanalesDeAviso;
+use App\Dominio\Avisos\ConexionDeWhatsapp;
 use App\Dominio\Compartido\Reloj;
 use App\Dominio\Fotos\AlmacenDeFotos;
 use App\Dominio\Ordenes\OrdenQuedoLista;
 use App\Infraestructura\Acceso\GoogleOAuth;
-use App\Infraestructura\Avisos\EvolutionApiCanal;
-use App\Infraestructura\Avisos\WhatsAppCloudApiCanal;
+use App\Infraestructura\Avisos\CanalesDeEvolutionApi;
+use App\Infraestructura\Avisos\EvolutionApiConexion;
 use App\Infraestructura\Fotos\AlmacenLocalPrivado;
 use App\Infraestructura\Reloj\RelojDeColombia;
 use DateTimeInterface;
@@ -44,23 +45,18 @@ class AppServiceProvider extends ServiceProvider
             config('services.google.secreto'),
             route('sesion.google.respuesta'),
         ));
-        // Las pruebas lo reemplazan por CanalDeAvisoFalso. ADR-007: si Evolution API está configurada se usa esa; si no, la API oficial.
-        // Sin ninguna de las dos, EnviarAviso deja el aviso para el envío asistido (RN-40)
-        $this->app->bind(CanalDeAviso::class, function (): CanalDeAviso {
-            $evolution = new EvolutionApiCanal(
-                config('services.evolution.url'),
-                config('services.evolution.clave_api'),
-                config('services.evolution.instancia'),
-            );
+        // Las pruebas lo reemplazan por un canal falso. RN-48: cada negocio avisa desde su propio WhatsApp,
+        // así que el canal no se arma una sola vez para todo el sistema, sino por negocio al enviar.
+        $this->app->bind(CanalesDeAviso::class, fn (): CanalesDeAviso => new CanalesDeEvolutionApi(
+            config('services.evolution.url'),
+            config('services.evolution.clave_api'),
+        ));
 
-            return $evolution->estaDisponible() ? $evolution : new WhatsAppCloudApiCanal(
-                config('services.whatsapp.token'),
-                config('services.whatsapp.id_numero'),
-                config('services.whatsapp.version_api'),
-                (string) config('services.whatsapp.plantilla', 'orden_lista'),
-                (string) config('services.whatsapp.idioma', 'es'),
-            );
-        });
+        // HU-39: vincular el WhatsApp del taller, que es lo que crea esa sesión
+        $this->app->bind(ConexionDeWhatsapp::class, fn (): ConexionDeWhatsapp => new EvolutionApiConexion(
+            config('services.evolution.url'),
+            config('services.evolution.clave_api'),
+        ));
     }
 
     public function boot(): void

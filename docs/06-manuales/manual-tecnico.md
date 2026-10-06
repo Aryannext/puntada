@@ -241,20 +241,16 @@ sudo cp despliegue/cron/taller /etc/cron.d/taller
 
 ### Conectar el WhatsApp
 
-Los avisos automáticos salen por el WhatsApp que se vincule a Evolution API, como WhatsApp Web.
+Los avisos automáticos salen por el WhatsApp que cada taller vincule, como WhatsApp Web. **No lo conecta quien instala: lo conecta la dueña**, desde la propia aplicación (HU-39). Cada negocio tiene su sesión, y ninguno envía por la de otro (RN-48).
 
-1. Desde tu equipo, abrir un túnel al servidor:
+Lo único que hace falta en el servidor es que `EVOLUTION_URL` y `EVOLUTION_API_KEY` estén en `despliegue/.env`, que es lo que deja el instalador. Con eso, la dueña:
 
-   ```sh
-   ssh -L 3013:127.0.0.1:3013 cristian@proyectosena.online
-   ```
+1. Entra al sistema y abre **Ajustes → WhatsApp del taller**.
+2. Toca **Conectar mi WhatsApp**.
+3. Abre WhatsApp en su celular: **Tres puntos → Dispositivos vinculados → Vincular un dispositivo**, y apunta la cámara al código.
+4. Vuelve a Ajustes y ve **Conectado**, con el número que quedó vinculado.
 
-2. En el servidor, leer la clave: `grep EVOLUTION_API_KEY despliegue/.env`.
-3. En tu navegador, abrir `http://localhost:3013/manager` y entrar con esa clave.
-4. Crear la instancia `taller` y escanear el QR desde el celular del taller: **WhatsApp → Dispositivos vinculados → Vincular un dispositivo**.
-5. En el servidor, poner `EVOLUTION_INSTANCIA=taller` en `despliegue/.env` y aplicar: `cd despliegue && docker compose up -d`.
-
-Si se cierra la sesión en el celular, los avisos no se pierden: quedan para envío asistido hasta que se repitan los pasos 1 a 4.
+La sesión se llama `taller-{id del negocio}` y la crea el sistema solo. Si se cierra en el celular, los avisos de ese negocio no se pierden: quedan para envío asistido hasta que la dueña la vuelva a conectar desde la misma pantalla.
 
 ### Actualizar a una versión nueva
 

@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Infraestructura;
 
-use App\Dominio\Avisos\CanalDeAviso;
+use App\Dominio\Avisos\CanalesDeAviso;
 use App\Dominio\Avisos\MensajeDeAviso;
 use App\Dominio\Clientes\Celular;
 use App\Dominio\Ordenes\NumeroDeOrden;
 use App\Dominio\Pagos\Dinero;
 use App\Infraestructura\Avisos\EvolutionApiCanal;
-use App\Infraestructura\Avisos\WhatsAppCloudApiCanal;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\File;
@@ -90,11 +89,13 @@ class EvolutionApiCanalTest extends TestCase
         $this->assertFalse((new EvolutionApiCanal('http://evolution:8080', null, 'taller'))->estaDisponible());
         $this->assertFalse((new EvolutionApiCanal('http://evolution:8080', 'clave-de-prueba', ''))->estaDisponible());
 
-        // Sin Evolution API, el sistema usa la API oficial
-        $this->assertInstanceOf(WhatsAppCloudApiCanal::class, app(CanalDeAviso::class));
-
-        config(['services.evolution.url' => 'http://evolution:8080', 'services.evolution.clave_api' => 'clave-de-prueba', 'services.evolution.instancia' => 'taller']);
-        $this->assertInstanceOf(EvolutionApiCanal::class, app(CanalDeAviso::class));
+        // RN-48: el canal se arma por negocio. El que tiene su sesión conectada envía por Evolution API;
+        // el que no la tiene recibe un canal no disponible, y su aviso queda para el envío asistido
+        config(['services.evolution.url' => 'http://evolution:8080', 'services.evolution.clave_api' => 'clave-de-prueba']);
+        $canales = app(CanalesDeAviso::class);
+        $this->assertInstanceOf(EvolutionApiCanal::class, $canales->paraInstancia('taller-1'));
+        $this->assertTrue($canales->paraInstancia('taller-1')->estaDisponible());
+        $this->assertFalse($canales->paraInstancia(null)->estaDisponible());
         Http::assertNothingSent();
     }
 

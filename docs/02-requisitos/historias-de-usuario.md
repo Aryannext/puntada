@@ -91,6 +91,24 @@ Una historia entra a un sprint de desarrollo cuando tiene: formato completo, ori
 | **CA-01.4** Cerrar sesión | que tengo la sesión iniciada | cierro la sesión y uso el botón Atrás del navegador | veo la pantalla de inicio de sesión y ningún dato del taller |
 | **CA-01.5** Sesión abandonada | que dejé la sesión abierta sin usarla durante más de 8 horas | vuelvo a usar el sistema | me pide iniciar sesión de nuevo |
 
+### HU-39 · Avisar a mis clientes desde el WhatsApp de mi taller
+
+> **Como** dueña del taller, **quiero** conectar mi propio WhatsApp al sistema, **para** que mis clientes reciban el aviso desde el número del negocio y no desde el de otra persona.
+
+**Nació de:** F-05 y la revisión del 6 de octubre de 2026. El canal de WhatsApp se configuraba al instalar y era uno solo para todo el sistema: los avisos salían del número de quien lo instaló. Con un taller no se notaba; con dos, los clientes de uno recibirían el mensaje desde el número del otro, y desde HU-38 el texto ya dice de qué taller le escriben.
+
+**Requisitos:** RF-44 · **Reglas:** RN-01, RN-40, RN-48 · **Calidad:** RNF-06, RNF-12, RNF-17
+
+**Prioridad:** Should · **Puntos:** 5
+
+| Criterio | Dado | Cuando | Entonces |
+| --- | --- | --- | --- |
+| **CA-39.1** Conectar mi WhatsApp | que mi taller todavía no tiene WhatsApp conectado | entro a Ajustes y toco «Conectar mi WhatsApp» | veo un código para escanear desde mi celular, con el paso a paso |
+| **CA-39.2** Ya quedó conectado | que escaneé el código con el WhatsApp de mi negocio | vuelvo a Ajustes | veo que está conectado y con qué número, y puedo desconectarlo |
+| **CA-39.3** El aviso sale de mi número | que mi WhatsApp está conectado y una orden queda lista | el sistema envía el aviso | el cliente lo recibe desde el número de mi taller |
+| **CA-39.4** Sin conectar, lo envío yo | que mi taller no tiene WhatsApp conectado y una orden queda lista | miro los avisos | el aviso está en «Avisos por enviar» para mandarlo con un toque, y no salió por el número de nadie más |
+| **CA-39.5** Desconectar | que ya no quiero que el sistema use mi WhatsApp | toco «Desconectar» y confirmo | queda desconectado, y los avisos siguientes esperan a que yo los envíe |
+
 ### HU-38 · Ponerle a mi taller su nombre, y el mío
 
 > **Como** dueña del taller, **quiero** escribir el nombre de mi negocio y el mío, **para** que el sistema me hable a mí y mis clientes sepan quién les escribe.

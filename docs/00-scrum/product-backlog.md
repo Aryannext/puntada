@@ -116,6 +116,7 @@ Una historia entra a un sprint solo si cumple la definición de "lista para desa
 | 43 | **HU-16** | Agregar, renombrar o desactivar tipos de prenda | Could | 2 | Sprint 4 | HU-09 |
 | 44 | **HU-37** | Entrar con mi correo de Google | Should | 3 | Sprint 4 | HU-01 |
 | 45 | **HU-38** | Ponerle a mi taller su nombre, y el mío | Should | 2 | Sprint 4 | HU-01 |
+| 46 | **HU-39** | Avisar a mis clientes desde el WhatsApp de mi taller | Should | 5 | Sprint 4 | HU-28 |
 
 ### Por qué este orden
 
@@ -127,6 +128,7 @@ Una historia entra a un sprint solo si cumple la definición de "lista para desa
 - **HT-07 cierra el Sprint 4:** el APK abre el sistema desplegado, así que necesita el dominio con HTTPS (HT-04) y las pantallas de fotos y avisos ya construidas.
 - **HU-26 encabeza lo Should:** ataca el efecto E-03, no saber cuánto falta por cobrar, y reutiliza el saldo ya construido.
 - **HU-36 va junto a HU-13:** las dos corrigen qué prendas cuentan en el valor de la orden. Se agregó el 14 de septiembre, al analizar el proceso actual.
+- **HU-39 entró el 6 de octubre**, al revisar qué pasaría con dos talleres a la vez. El canal de WhatsApp se configuraba al instalar y era uno solo para todo el sistema: los avisos salían del número de quien instaló. Es el mismo caso de HU-38 —algo de la dueña que estaba en manos del instalador—, pero con una diferencia: aquí el cliente recibe un mensaje de un número que no es el de su taller.
 - **HU-37 entró el 23 de septiembre**, después de renombrar el producto: la usuaria del taller usa el celular para lo suyo y una contraseña más termina en un papel. Entra con la cuenta de Google que ya tiene abierta, y solo si su correo quedó registrado al instalar (RN-45). El registro abierto sigue fuera del alcance.
 - **HU-38 y el mensaje nuevo, el 23 de septiembre por la tarde.** Al revisar la app con la dueña en mente aparecieron tres cosas: el sistema saludaba «Hola, Dueña del taller», el aviso decía «del taller» sin nombrar cuál y tuteaba al cliente, y los tipos de prenda solo se podían agregar de refilón, escribiendo «Otro» al registrar. Las tres son de la dueña, no de quien instala.
 - **HU-36 entró el 22 de septiembre**, después de terminar las Must y los documentos de cierre: era la única historia que dejaba una regla de negocio sin prueba (RN-44), y su pantalla PT-12 ya estaba diseñada desde el Sprint 2.

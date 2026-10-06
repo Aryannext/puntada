@@ -136,6 +136,10 @@ sistema/
 │   │   │   └── ReglasDeValor.php           Lo pagado no supera el valor
 │   │   ├── Avisos/
 │   │   │   ├── CanalDeAviso.php            Interfaz (ADR-003)
+│   │   │   ├── CanalesDeAviso.php          Interfaz: el canal de cada negocio (RN-48)
+│   │   │   ├── ConexionDeWhatsapp.php      Interfaz: vincular el WhatsApp del taller (HU-39)
+│   │   │   ├── CodigoDeVinculacion.php     El código que se escanea
+│   │   │   ├── EstadoDeConexion.php        En qué va la vinculación
 │   │   │   ├── ResultadoDeEnvio.php
 │   │   │   └── MensajeDeAviso.php          Texto con los datos del momento
 │   │   ├── Fotos/
@@ -173,6 +177,9 @@ sistema/
 │   │   │   └── ConfirmarEnvioAsistido.php
 │   │   ├── Configuracion/
 │   │   │   ├── PersonalizarTaller.php      El nombre del taller y el de la usuaria (HU-38)
+│   │   │   ├── ConectarWhatsapp.php        Prepara la sesión y entrega el código (HU-39)
+│   │   │   ├── EstadoDeWhatsapp.php        Pregunta en qué va y lo guarda (HU-39)
+│   │   │   ├── DesconectarWhatsapp.php     Cierra la sesión del taller (HU-39)
 │   │   │   ├── CambiarContrasena.php
 │   │   │   ├── CambiarPlazoSinReclamar.php
 │   │   │   └── GestionarTiposDePrenda.php
@@ -205,6 +212,8 @@ sistema/
 │   │   │   └── GoogleOAuth.php             Cambia el código de Google por una identidad, servidor a servidor
 │   │   ├── Avisos/
 │   │   │   ├── EvolutionApiCanal.php        ADR-007
+│   │   │   ├── CanalesDeEvolutionApi.php   Arma el canal con la sesión de cada negocio (RN-48)
+│   │   │   ├── EvolutionApiConexion.php    Crea la sesión, entrega el código y dice en qué va
 │   │   │   ├── WhatsAppCloudApiCanal.php
 │   │   │   └── WhatsAppAsistidoCanal.php
 │   │   ├── Fotos/
@@ -268,6 +277,7 @@ despliegue/                                 Nginx, servicio de la cola y scripts
 | **HU-02** | PT-23 | `AjustesController` | `CambiarContrasena`, validado por `ContrasenaRequest` |
 | **HU-37** | PT-01 | `SesionController` | `EntrarConGoogle`, con el adaptador `GoogleOAuth` |
 | **HU-38** | PT-02, PT-23 | `AjustesController` | `PersonalizarTaller`; el saludo lo arma `SaludoDelDia` en el panel |
+| **HU-39** | PT-23, PT-18 | `AjustesController` | `ConectarWhatsapp`, `EstadoDeWhatsapp` y `DesconectarWhatsapp`, con el adaptador `EvolutionApiConexion`; al enviar, `EnviarAviso` le pide el canal a `CanalesDeAviso` |
 | **HU-03** | PT-04 | `ClienteController` | `RegistrarCliente` |
 | **HU-04** | PT-03 | `ClienteController` | `BuscarClientes` |
 | **HU-05** | PT-05 | `ClienteController` | `FichaDeCliente` |
@@ -356,6 +366,7 @@ Complementa la tabla del [modelo de datos](../modelo-de-datos/README.md#dónde-s
 | **RN-45** | Aplicación | `EntrarConGoogle` | Busca la usuaria por el correo que Google confirmó; si no existe, no entra y no se crea nada |
 | **RN-46** | Dominio | `MensajeDeAviso` | Arma el texto: saluda de usted, nombra el taller de la dueña y solo habla del saldo si lo hay |
 | **RN-47** | Dominio | `SaludoDelDia` | Buenos días, buenas tardes o buenas noches según la hora del reloj de Colombia |
+| **RN-48** | Aplicación | `EnviarAviso`, `CanalesDeEvolutionApi` | El canal se pide por negocio: el que no tiene sesión conectada recibe uno no disponible y su aviso queda en envío asistido |
 
 ## Dos recorridos
 

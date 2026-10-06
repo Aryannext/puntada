@@ -139,7 +139,7 @@ Estos datos están también en la base de datos de ejemplo ([datos-de-ejemplo.sq
 | **PT-20** | [Órdenes atrasadas](pt-20-atrasadas.html) | HU-33 | CA-33.1 |
 | **PT-21** | [Órdenes sin reclamar](pt-21-sin-reclamar.html) | HU-34 | CA-34.1 |
 | **PT-22** | [Dinero](pt-22-dinero.html) | HU-26, HU-27 | CA-26.1, CA-27.1 |
-| **PT-23** | [Ajustes](pt-23-ajustes.html) | HU-38, HU-02, HU-35, HU-16, HU-01 | CA-38.1, CA-38.2, CA-02.1, CA-35.1, CA-16.2, CA-16.3, CA-01.4 |
+| **PT-23** | [Ajustes](pt-23-ajustes.html) | HU-38, HU-39, HU-02, HU-35, HU-16, HU-01 | CA-38.1, CA-38.2, CA-39.1, CA-39.2, CA-02.1, CA-35.1, CA-16.2, CA-16.3, CA-01.4 |
 
 ### Galería
 

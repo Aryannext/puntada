@@ -65,6 +65,10 @@ erDiagram
         bigint id PK
         varchar nombre
         smallint dias_sin_reclamar
+        varchar wa_instancia UK
+        char wa_numero
+        enum wa_estado
+        datetime wa_conectado_en
         datetime creado_en
         datetime actualizado_en
     }
@@ -281,6 +285,7 @@ Cada regla se protege en el lugar más cercano a los datos donde se puede expres
 | **RN-45** | Columna `correo`, opcional, y `uq_usuarios_correo` | Entra solo si el correo que Google da por verificado ya está en una usuaria; no crea usuaria ni negocio | — |
 | **RN-46** | Columna `mensaje`, que guarda el texto enviado | Arma el saludo de usted con el nombre del negocio, el número, las prendas listas y el saldo solo si lo hay | — |
 | **RN-47** | Zona horaria de la conexión (RN-09) | El saludo sale de la hora del taller, no de la del servidor | El panel saluda según la hora de Colombia |
+| **RN-48** | Columnas `wa_instancia`, `wa_numero` y `wa_estado` en `negocios`, con `uq_negocios_wa_instancia` para que dos talleres no compartan sesión | El canal se pide por negocio: sin sesión conectada, el aviso queda en envío asistido | — |
 
 ## Índices y volumen
 

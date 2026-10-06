@@ -11,11 +11,18 @@ CREATE TABLE negocios (
   id                BIGINT UNSIGNED   NOT NULL AUTO_INCREMENT COMMENT 'Identificador del negocio',
   nombre            VARCHAR(120)      NOT NULL COMMENT 'Nombre del taller',
   dias_sin_reclamar SMALLINT UNSIGNED NOT NULL DEFAULT 30 COMMENT 'Días en Lista para entregar después de los cuales una orden queda sin reclamar, entre 1 y 365 (RN-35)',
+  wa_instancia      VARCHAR(60)       NULL COMMENT 'Nombre de la sesión de WhatsApp de este negocio en la pasarela; única en todo el sistema (RN-48)',
+  wa_numero         CHAR(10)          NULL COMMENT 'Número de WhatsApp que quedó conectado, como lo informa WhatsApp al vincular (RN-48)',
+  wa_estado         ENUM('sin_conectar','esperando','conectado') NOT NULL DEFAULT 'sin_conectar' COMMENT 'En qué va la conexión del WhatsApp del negocio (RN-48)',
+  wa_conectado_en   DATETIME          NULL COMMENT 'Fecha y hora en que quedó conectado',
   creado_en         DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora de registro',
   actualizado_en    DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha y hora del último cambio',
   PRIMARY KEY (id),
+  UNIQUE KEY uq_negocios_wa_instancia (wa_instancia),
   CONSTRAINT ck_negocios_nombre CHECK (CHAR_LENGTH(TRIM(nombre)) > 0),
-  CONSTRAINT ck_negocios_dias_sin_reclamar CHECK (dias_sin_reclamar BETWEEN 1 AND 365)
+  CONSTRAINT ck_negocios_dias_sin_reclamar CHECK (dias_sin_reclamar BETWEEN 1 AND 365),
+  CONSTRAINT ck_negocios_wa_numero CHECK (wa_numero IS NULL OR REGEXP_LIKE(wa_numero, '^3[0-9]{9}$')),
+  CONSTRAINT ck_negocios_wa_conectado CHECK ((wa_estado = 'conectado') = (wa_numero IS NOT NULL AND wa_conectado_en IS NOT NULL))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
   COMMENT='Taller que usa el sistema. En esta entrega hay uno solo (ADR-002)';
 

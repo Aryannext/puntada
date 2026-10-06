@@ -438,6 +438,15 @@ El panel saluda a la usuaria por su nombre y según la hora del taller (RN-09): 
 
 **Ejemplo:** Inés abre el sistema a las 2:30 p. m. y lee «Buenas tardes, Inés».
 
+### RN-48 · Cada taller avisa desde su propio WhatsApp
+
+El aviso automático de un negocio sale únicamente del WhatsApp que su dueña conectó. **Ningún negocio envía por el WhatsApp de otro.** Si el negocio no tiene WhatsApp conectado, o la conexión se cayó, el aviso no sale por el canal automático: queda para el envío asistido (RN-40), que la dueña manda desde su propio teléfono.
+
+**Tipo:** Restricción · **Origen:** ADR-003 · ADR-007 · revisión del 6 de octubre de 2026
+
+**Ejemplo:** Modistería Inés tiene su WhatsApp conectado y el aviso de Marta sale del número de Inés. Arreglos Donde Rosa todavía no lo ha conectado: el aviso de su clienta no sale solo, queda en «Avisos por enviar» y Rosa lo manda con un toque desde su teléfono.
+
+> Hasta el 6 de octubre de 2026 el canal era uno solo para todo el sistema, configurado al instalar: si entraba un segundo taller, sus clientes habrían recibido el mensaje desde el número del primero.
 ### RN-38 · Un solo aviso por cada vez que la orden queda lista
 
 Por cada vez que una orden entra en Lista para entregar se envía como máximo un aviso de orden lista, aunque haya reintentos o toques repetidos.

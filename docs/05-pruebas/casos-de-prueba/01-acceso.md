@@ -4,7 +4,7 @@
 
 Cada criterio de aceptación es un caso de prueba con su mismo código. La clase de prueba de cada historia es la del caso de uso que la implementa; cuando un criterio usa otra, aparece junto al método. Las rutas son relativas a `sistema/tests/`.
 
-**Resumen:** 4 historias · 17 casos · 16 automáticos · 1 automáticos y manuales · 0 manuales.
+**Resumen:** 5 historias · 22 casos · 21 automáticos · 1 automáticos y manuales · 0 manuales.
 
 ## HU-01 · Iniciar y cerrar sesión
 
@@ -17,6 +17,18 @@ Cada criterio de aceptación es un caso de prueba con su mismo código. La clase
 | **CA-01.3** Intentos repetidos | Dado que fallé 5 veces en el último minuto, cuando lo intento por sexta vez | el sistema me pide esperar antes de volver a intentarlo, aunque esta vez la contraseña sea correcta | Funcionalidad | Automática | `test_ca_01_3_intentos_repetidos` |
 | **CA-01.4** Cerrar sesión | Dado que tengo la sesión iniciada, cuando cierro la sesión y uso el botón Atrás del navegador | veo la pantalla de inicio de sesión y ningún dato del taller | Funcionalidad | Automática y manual | `test_ca_01_4_cerrar_sesion`<br>y [PM-05](../pruebas-manuales/PM-05-pantallas-y-navegadores.md) |
 | **CA-01.5** Sesión abandonada | Dado que dejé la sesión abierta sin usarla durante más de 8 horas, cuando vuelvo a usar el sistema | me pide iniciar sesión de nuevo | Funcionalidad | Automática | `test_ca_01_5_sesion_abandonada` |
+
+## HU-39 · Avisar a mis clientes desde el WhatsApp de mi taller
+
+**Prioridad:** Should · **Reglas:** RN-01, RN-40, RN-48 · **Calidad:** RNF-06, RNF-12, RNF-17 · **Clase de prueba:** `Feature/Configuracion/ConectarWhatsappTest.php`
+
+| Caso | Situación | Resultado esperado | Nivel | Forma | Prueba |
+| --- | --- | --- | --- | --- | --- |
+| **CA-39.1** Conectar mi WhatsApp | Dado que mi taller todavía no tiene WhatsApp conectado, cuando entro a Ajustes y toco «Conectar mi WhatsApp» | veo un código para escanear desde mi celular, con el paso a paso | Funcionalidad | Automática | `test_ca_39_1_conectar_mi_whatsapp` |
+| **CA-39.2** Ya quedó conectado | Dado que escaneé el código con el WhatsApp de mi negocio, cuando vuelvo a Ajustes | veo que está conectado y con qué número, y puedo desconectarlo | Funcionalidad | Automática | `test_ca_39_2_ya_quedo_conectado` |
+| **CA-39.3** El aviso sale de mi número | Dado que mi WhatsApp está conectado y una orden queda lista, cuando el sistema envía el aviso | el cliente lo recibe desde el número de mi taller | Funcionalidad | Automática | `test_ca_39_3_el_aviso_sale_de_mi_numero` |
+| **CA-39.4** Sin conectar, lo envío yo | Dado que mi taller no tiene WhatsApp conectado y una orden queda lista, cuando miro los avisos | el aviso está en «Avisos por enviar» para mandarlo con un toque, y no salió por el número de nadie más | Funcionalidad | Automática | `test_ca_39_4_sin_conectar_lo_envio_yo` |
+| **CA-39.5** Desconectar | Dado que ya no quiero que el sistema use mi WhatsApp, cuando toco «Desconectar» y confirmo | queda desconectado, y los avisos siguientes esperan a que yo los envíe | Funcionalidad | Automática | `test_ca_39_5_desconectar` |
 
 ## HU-38 · Ponerle a mi taller su nombre, y el mío
 

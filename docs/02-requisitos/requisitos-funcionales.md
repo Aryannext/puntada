@@ -82,6 +82,7 @@ Todos se redactan como "El sistema debe permitir…" o "El sistema debe…", y l
 | **RF-41** | El sistema debe permitir a la usuaria devolver al cliente sin arreglar una prenda Pendiente o En proceso, previa confirmación, dejando de contar su precio en el valor de la orden. | Should | OE-02 · OE-04 | RN-12, RN-16, RN-26, RN-44 | F-05 |
 | **RF-42** | El sistema debe permitir a la usuaria entrar con su cuenta de Google, si el correo de esa cuenta ya está registrado en el sistema. El inicio de sesión con usuario y contraseña sigue disponible. | Should | Todos | RN-01, RN-45 | F-05 |
 | **RF-43** | El sistema debe permitir a la usuaria cambiar el nombre de su taller y su propio nombre, que se usan en el saludo del panel y en el aviso que reciben los clientes. | Should | Todos | RN-01, RN-46, RN-47 | F-05 |
+| **RF-44** | El sistema debe permitir a la usuaria conectar el WhatsApp de su taller mostrándole un código para vincularlo desde su celular, ver en qué estado está esa conexión y desconectarlo; los avisos automáticos de ese negocio salen de ese número. | Should | Todos | RN-01, RN-40, RN-48 | F-05 |
 
 ## Pagos
 

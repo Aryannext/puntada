@@ -16,11 +16,20 @@ class Negocio extends Model
 
     protected $table = 'negocios';
 
-    protected $fillable = ['nombre', 'dias_sin_reclamar'];
+    protected $fillable = ['nombre', 'dias_sin_reclamar', 'wa_instancia', 'wa_numero', 'wa_estado', 'wa_conectado_en'];
 
     protected function casts(): array
     {
-        return ['dias_sin_reclamar' => 'integer'];
+        return ['dias_sin_reclamar' => 'integer', 'wa_conectado_en' => 'datetime'];
+    }
+
+    /**
+     * La sesión de WhatsApp con la que este negocio avisa, o null si no tiene ninguna conectada (RN-48).
+     * Mientras no esté conectada, sus avisos van al envío asistido.
+     */
+    public function instanciaConectada(): ?string
+    {
+        return $this->wa_estado === 'conectado' ? $this->wa_instancia : null;
     }
 
     /**

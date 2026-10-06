@@ -42,6 +42,5 @@
         <env name="WHATSAPP_ID_NUMERO" value=""/>
         <env name="EVOLUTION_URL" value=""/>
         <env name="EVOLUTION_API_KEY" value=""/>
-        <env name="EVOLUTION_INSTANCIA" value=""/>
     </php>
 </phpunit>

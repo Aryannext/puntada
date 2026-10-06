@@ -256,7 +256,7 @@ fieldset.campo { min-width: 0; margin: 0; padding: 0; border: 0; }
 .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .chip-pendiente { background: var(--neutro-suave); color: var(--neutro); }
 .chip-proceso { background: var(--proceso-suave); color: var(--proceso); }
-.chip-terminada, .chip-lista, .chip-pagada, .chip-enviado { background: var(--exito-suave); color: var(--exito); }
+.chip-terminada, .chip-lista, .chip-pagada, .chip-enviado, .chip-conectado { background: var(--exito-suave); color: var(--exito); }
 .chip-entregada { background: var(--tinta); color: #fff; }
 .chip-devuelta, .chip-asistido { background: var(--aviso-suave); color: var(--aviso); }
 .chip-cancelada, .chip-atrasada { background: var(--peligro-suave); color: var(--peligro); }
@@ -506,3 +506,8 @@ a.banda { text-decoration: none; }
   }
   .acceso, .error { min-height: auto; flex: 1; }
 }
+
+/* HU-39: vincular el WhatsApp del taller */
+.instrucciones { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.codigo-qr { display: block; width: 264px; max-width: 100%; height: auto; margin: 4px auto; border: 1px solid var(--borde); border-radius: var(--radio); background: #fff; }
+.codigo { font-family: var(--fuente-numeros); letter-spacing: .12em; }

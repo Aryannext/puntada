@@ -44,6 +44,41 @@
         <button class="btn btn-secundario" type="submit">Guardar</button>
       </form>
     </section>
+    {{-- HU-39: el WhatsApp con el que avisa este taller. Sin él, los avisos quedan para que los envíe ella (RN-48) --}}
+    <section class="seccion">
+      <h2 class="titulo-seccion">WhatsApp del taller</h2>
+      <div class="tarjeta pila">
+        @if ($whatsapp->wa_estado === 'conectado')
+          <p><span class="chip chip-conectado">Conectado</span></p>
+          <p class="fuerte">Tus avisos salen del {{ $whatsapp->wa_numero }}</p>
+          <span class="ayuda">Vinculado el {{ $whatsapp->wa_conectado_en?->translatedFormat('j \d\e F \d\e Y') }}.</span>
+          <form method="POST" action="{{ route('ajustes.whatsapp.desconectar') }}">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-peligro-borde" type="submit">Desconectar mi WhatsApp</button>
+          </form>
+        @elseif ($codigo)
+          <p class="fuerte">Escanea este código con tu WhatsApp</p>
+          <ol class="instrucciones">
+            <li>Abre WhatsApp en tu celular.</li>
+            <li>Toca los tres puntos y entra a <strong>Dispositivos vinculados</strong>.</li>
+            <li>Toca <strong>Vincular un dispositivo</strong> y apunta la cámara aquí.</li>
+          </ol>
+          <img class="codigo-qr" src="{{ $codigo['imagen'] }}" alt="Código para vincular tu WhatsApp" width="264" height="264">
+          @if ($codigo['escrito'])
+            <span class="ayuda">Si la cámara no lo lee, en WhatsApp elige «Vincular con número de teléfono» y escribe <strong class="codigo">{{ $codigo['escrito'] }}</strong>.</span>
+          @endif
+          <a class="btn btn-secundario" href="{{ route('ajustes') }}">Ya lo escaneé</a>
+        @else
+          <p>Mientras no conectes tu WhatsApp, los avisos de orden lista no salen solos: quedan en <a href="{{ route('avisos.pendientes') }}">Avisos por enviar</a> para que los mandes tú con un toque.</p>
+          <span class="ayuda">Al conectarlo, el aviso le llega al cliente desde el número de tu taller. Se vincula escaneando un código, como WhatsApp Web, y puedes desconectarlo cuando quieras.</span>
+          <form method="POST" action="{{ route('ajustes.whatsapp.conectar') }}">
+            @csrf
+            <button class="btn btn-secundario" type="submit">Conectar mi WhatsApp</button>
+          </form>
+        @endif
+      </div>
+    </section>
 
     <section class="seccion">
       <h2 class="titulo-seccion">Contraseña</h2>

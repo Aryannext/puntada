@@ -300,10 +300,28 @@ The **Entregar** button only appears when something is finished.
 
 ## 11. Notifying the customer on WhatsApp
 
-**The notice goes out on its own.** When an order is ready, the system writes to the customer on WhatsApp from the shop's number:
+### First, connect your WhatsApp
 
-> Hola Marta, tu orden #0042 del taller está lista para recoger. Prendas listas: 3. Saldo pendiente: $21.000. Te esperamos.
-> (Hi Marta, your order #0042 is ready for pick-up. Garments ready: 3. Balance due: $21,000. See you soon.)
+So that notices go out **from your own shop number**, link it once:
+
+1. Open **Ajustes** (Settings), the cog at the top, and find **WhatsApp del taller** (Shop WhatsApp).
+2. Tap **Conectar mi WhatsApp** (Connect my WhatsApp). A code appears on screen.
+3. On your phone open WhatsApp, tap the **three dots** at the top and go to **Linked devices**.
+4. Tap **Link a device** and point the camera at the code.
+5. Go back to Settings: you will see **Conectado** (Connected) and your number.
+
+It works like WhatsApp Web, and that is why you do not type the number: it comes from the phone that scans, so it cannot be wrong. You can **disconnect** it whenever you want, on that same screen.
+
+**Until you connect it, no notice is lost:** they wait under «Avisos por enviar» (Notices to send) for you to send them with one tap, as explained below.
+
+### The notice goes out on its own
+
+When an order is ready, the system writes to the customer on WhatsApp from your number:
+
+> Hola Marta, le escribimos de Modistería Inés. Su orden #0042 ya está lista 🧵 Son 3 prendas, con un saldo de $21.000. La esperamos cuando pueda pasar.
+> (Hi Marta, we are writing from Modistería Inés. Your order #0042 is ready 🧵 There are 3 garments, with a balance of $21,000. We will be waiting whenever you can drop by.)
+
+The message addresses the customer formally and uses the shop name you set in Settings. If the order is already paid, instead of the balance it says she only needs to come and pick it up.
 
 In the order details, under **Avisos al cliente** (Customer notices), you see each notice and what happened to it: **Enviado** (Sent), **En cola** (Queued, goes out within minutes), **Por enviar** (To send) or **Descartado** (Discarded, the order stopped being ready before it was sent).
 

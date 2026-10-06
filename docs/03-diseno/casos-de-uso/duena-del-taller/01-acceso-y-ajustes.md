@@ -33,6 +33,35 @@ Lo que la dueña hace para entrar al sistema y para ajustarlo a su taller. Son c
 - **3a. Datos incorrectos:** el sistema muestra «Usuario o contraseña incorrectos», sin decir cuál de los dos falló, y no deja entrar (CA-01.2).
 - **3b. Cinco intentos fallidos en el último minuto:** el sistema pide esperar antes de volver a intentarlo, aunque la contraseña sea correcta (CA-01.3).
 
+### CU-38 · Conectar el WhatsApp del taller
+
+| Campo | Detalle |
+| --- | --- |
+| **Actor principal** | Dueña del taller |
+| **Historias** | HU-39 |
+| **Pantallas** | PT-23, PT-18 |
+| **Implementa** | `AjustesController` |
+| **Precondición** | Tiene la sesión iniciada y su celular a la mano, con WhatsApp abierto |
+| **Disparador** | Quiere que los avisos salgan del número de su taller, y no quedarse mandándolos a mano |
+| **Postcondición** | El negocio queda con su sesión de WhatsApp conectada y sus avisos salen de ese número (RN-48) |
+| **Relaciones** | Extiende a CU-28, el envío del aviso |
+
+**Flujo principal**
+
+1. La dueña abre Ajustes y busca «WhatsApp del taller».
+2. Toca «Conectar mi WhatsApp».
+3. El sistema prepara la sesión del negocio y le muestra un código, con el paso a paso para escanearlo.
+4. La dueña abre WhatsApp en su celular, entra a Dispositivos vinculados y escanea el código.
+5. Al volver a Ajustes, el sistema pregunta en qué va la vinculación, la da por conectada y muestra con qué número quedó.
+6. Desde ahí, los avisos de ese negocio salen de ese WhatsApp (RN-48).
+
+**Flujos alternativos**
+
+- **4a. Todavía no ha escaneado:** al volver a Ajustes sigue viendo el código, y puede escanearlo cuando pueda (CA-39.1).
+- **4b. La cámara no lee el código:** WhatsApp también acepta el código escrito, que el sistema muestra debajo.
+- **6a. No lo ha conectado, o la sesión se cayó:** el aviso no sale solo; queda en «Avisos por enviar» para que ella lo mande con un toque, y nunca sale por el WhatsApp de otro taller (CA-39.4, RN-40).
+- **6b. Quiere dejar de usarlo:** toca «Desconectar» y los avisos siguientes vuelven a esperar a que ella los envíe (CA-39.5).
+
 ### CU-37 · Ponerle nombre al taller
 
 | Campo | Detalle |

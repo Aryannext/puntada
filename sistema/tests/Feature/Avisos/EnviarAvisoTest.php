@@ -5,7 +5,7 @@ namespace Tests\Feature\Avisos;
 use App\Aplicacion\Avisos\EnviarAviso;
 use App\Aplicacion\Ordenes\CambiarEstadoDePrenda;
 use App\Aplicacion\Pagos\RegistrarPago;
-use App\Dominio\Avisos\CanalDeAviso;
+use App\Dominio\Avisos\CanalesDeAviso;
 use App\Dominio\Ordenes\EstadoDePrenda;
 use App\Modelos\Aviso;
 use App\Modelos\Cliente;
@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\Soporte\CanalDeAvisoFalso;
+use Tests\Soporte\CanalesDeAvisoFalso;
 use Tests\TestCase;
 
 /**
@@ -40,13 +41,15 @@ class EnviarAvisoTest extends TestCase
 
     private Aviso $aviso;
 
+    private CanalesDeAvisoFalso $canales;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->duena = Usuario::factory()->create();
         // RN-46: el aviso nombra al taller, así que su nombre no puede ser el que invente la factory
-        $this->duena->negocio->update(['nombre' => 'Modistería Inés']);
+        $this->duena->negocio->update(['nombre' => 'Modistería Inés', 'wa_instancia' => 'taller-'.$this->duena->negocio_id, 'wa_estado' => 'conectado', 'wa_numero' => '3001112233', 'wa_conectado_en' => '2026-09-01 08:00:00']);
         $negocio = ['negocio_id' => $this->duena->negocio_id];
         $marta = Cliente::factory()->create([...$negocio, 'nombre' => 'Marta Rincón', 'celular' => '3104567890']);
         $camisa = TipoPrenda::factory()->create([...$negocio, 'nombre' => 'Camisa']);
@@ -201,6 +204,37 @@ class EnviarAvisoTest extends TestCase
             ->assertSeeInOrder(['Avisos al cliente', '15 sep 2026 · 4:01 p. m.', 'API oficial', 'Hola Marta, le escribimos de Modistería Inés', 'Enviado']);
     }
 
+    public function test_rn_48_cada_taller_avisa_desde_su_propio_whatsapp(): void
+    {
+        $canal = $this->usarCanal(CanalDeAvisoFalso::queAcepta());
+        EnviarAviso::dispatch($this->aviso->id);
+        $this->procesarLaCola();
+
+        // El aviso salió por la sesión de este taller, la que conectó su dueña
+        $this->assertSame(['taller-'.$this->duena->negocio_id], $this->canales->instanciasPedidas);
+        $this->assertSame('enviado', $this->aviso->fresh()->estado);
+        $this->assertCount(1, $canal->enviados);
+
+        // Otro taller, que todavía no ha conectado el suyo: su aviso no sale por el número del primero.
+        // Se actúa como su dueña, porque cada quien solo ve lo de su negocio (RN-01)
+        $otra = Usuario::factory()->create();
+        $this->actingAs($otra);
+        $rosa = Cliente::factory()->create(['negocio_id' => $otra->negocio_id, 'nombre' => 'Rosa Pardo', 'celular' => '3209876543']);
+        $orden = Orden::factory()->create(['cliente_id' => $rosa->id, 'numero' => 7, 'recibida_en' => '2026-09-07 09:15:00', 'lista_en' => '2026-09-15 16:00:00']);
+        Prenda::factory()->create(['orden_id' => $orden->id, 'precio' => 12000, 'estado' => 'terminada']);
+        $avisoDeRosa = Aviso::factory()->create([
+            'orden_id' => $orden->id, 'ciclo_lista_en' => '2026-09-15 16:00:00', 'estado' => 'en_cola',
+            'canal' => null, 'mensaje' => null, 'generado_en' => '2026-09-15 16:00:00', 'resuelto_en' => null,
+        ]);
+
+        EnviarAviso::dispatch($avisoDeRosa->id);
+        $this->procesarLaCola();
+
+        $this->assertSame('pendiente_asistido', $avisoDeRosa->fresh()->estado);
+        $this->assertCount(1, $canal->enviados, 'El taller sin WhatsApp conectado no debe enviar por el de otro.');
+        $this->assertSame(null, $this->canales->instanciasPedidas[1]);
+    }
+
     private function avisoEnCola(string $cicloListaEn): Aviso
     {
         return Aviso::factory()->create([
@@ -216,7 +250,8 @@ class EnviarAvisoTest extends TestCase
 
     private function usarCanal(CanalDeAvisoFalso $canal): CanalDeAvisoFalso
     {
-        $this->app->instance(CanalDeAviso::class, $canal);
+        $this->canales = new CanalesDeAvisoFalso($canal);
+        $this->app->instance(CanalesDeAviso::class, $this->canales);
 
         return $canal;
     }

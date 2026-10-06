@@ -41,7 +41,6 @@ return [
     'evolution' => [
         'url' => env('EVOLUTION_URL'),
         'clave_api' => env('EVOLUTION_API_KEY'),
-        'instancia' => env('EVOLUTION_INSTANCIA'),
     ],
 
     // HU-37: entrar con Google. Sin identificador ni secreto, el botón no aparece y se entra con contraseña

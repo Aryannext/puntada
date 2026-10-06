@@ -105,12 +105,12 @@ Content-Type: application/json
 
 ## Evolution API
 
-ADR-007 cambia el canal automático: si Evolution API está configurada, `EvolutionApiCanal` envía el aviso; si no, se usa `WhatsAppCloudApiCanal`. La cola, los reintentos, el envío asistido y la constancia no cambian.
+ADR-007 cambia el canal automático: el aviso lo envía `EvolutionApiCanal`. Desde HU-39 el canal no es uno solo para todo el sistema: `CanalesDeAviso` lo arma con la sesión de WhatsApp que cada negocio conectó, y un negocio sin sesión recibe un canal no disponible, así que su aviso queda para el envío asistido (RN-48). La cola, los reintentos y la constancia no cambian.
 
 ### Solicitud
 
 ```http
-POST {EVOLUTION_URL}/message/sendText/{EVOLUTION_INSTANCIA}
+POST {EVOLUTION_URL}/message/sendText/{negocios.wa_instancia}
 apikey: {EVOLUTION_API_KEY}
 Content-Type: application/json
 ```
@@ -123,7 +123,7 @@ Content-Type: application/json
 ```
 
 - `number` es `Celular::enFormatoInternacional()` y `text` es `MensajeDeAviso::texto()`: no hay plantilla.
-- `EvolutionApiCanal::estaDisponible()` es verdadero solo si `EVOLUTION_URL`, `EVOLUTION_API_KEY` y `EVOLUTION_INSTANCIA` tienen valor.
+- `EvolutionApiCanal::estaDisponible()` es verdadero solo si `EVOLUTION_URL` y `EVOLUTION_API_KEY` tienen valor y el negocio tiene su sesión conectada (`negocios.wa_estado = conectado`).
 - La conexión espera hasta 5 segundos y la respuesta hasta 20.
 
 ### Respuestas

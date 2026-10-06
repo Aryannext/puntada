@@ -12,9 +12,10 @@ class PrendaControllerTest extends TestCase
 {
     public function test_rn_19_el_estado_de_avance_no_se_cambia_a_mano(): void
     {
-        // La única ruta que cambia un estado es la de una prenda; no existe «marcar orden como lista»
+        // La única ruta que cambia un estado es la de una prenda; no existe «marcar orden como lista».
+        // Solo se miran las que escriben: consultar en qué va la conexión de WhatsApp (HU-39) no cambia nada
         $rutasConEstado = collect(Route::getRoutes()->getRoutes())
-            ->filter(fn ($ruta) => str_contains($ruta->uri(), 'estado'))
+            ->filter(fn ($ruta) => str_contains($ruta->uri(), 'estado') && array_diff($ruta->methods(), ['HEAD', 'GET']))
             ->map(fn ($ruta) => implode('|', array_diff($ruta->methods(), ['HEAD'])).' '.$ruta->uri())
             ->values()
             ->all();

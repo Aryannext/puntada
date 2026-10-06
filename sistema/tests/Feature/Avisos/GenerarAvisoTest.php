@@ -5,7 +5,7 @@ namespace Tests\Feature\Avisos;
 use App\Aplicacion\Avisos\EnviarAviso;
 use App\Aplicacion\Avisos\GenerarAviso;
 use App\Aplicacion\Ordenes\CambiarEstadoDePrenda;
-use App\Dominio\Avisos\CanalDeAviso;
+use App\Dominio\Avisos\CanalesDeAviso;
 use App\Dominio\Ordenes\EstadoDePrenda;
 use App\Dominio\Ordenes\OrdenQuedoLista;
 use App\Modelos\Aviso;
@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Testing\TestResponse;
 use Tests\Soporte\CanalDeAvisoFalso;
+use Tests\Soporte\CanalesDeAvisoFalso;
 use Tests\TestCase;
 
 /**
@@ -45,7 +46,7 @@ class GenerarAvisoTest extends TestCase
 
         $this->duena = Usuario::factory()->create();
         // RN-46: el aviso nombra al taller, así que su nombre no puede ser el que invente la factory
-        $this->duena->negocio->update(['nombre' => 'Modistería Inés']);
+        $this->duena->negocio->update(['nombre' => 'Modistería Inés', 'wa_instancia' => 'taller-'.$this->duena->negocio_id, 'wa_estado' => 'conectado', 'wa_numero' => '3001112233', 'wa_conectado_en' => '2026-09-01 08:00:00']);
         $negocio = ['negocio_id' => $this->duena->negocio_id];
         $marta = Cliente::factory()->create([...$negocio, 'nombre' => 'Marta Rincón', 'celular' => '3104567890']);
         $pantalon = TipoPrenda::factory()->create([...$negocio, 'nombre' => 'Pantalón']);
@@ -150,7 +151,7 @@ class GenerarAvisoTest extends TestCase
 
     private function usarCanal(CanalDeAvisoFalso $canal): CanalDeAvisoFalso
     {
-        $this->app->instance(CanalDeAviso::class, $canal);
+        $this->app->instance(CanalesDeAviso::class, new CanalesDeAvisoFalso($canal));
 
         return $canal;
     }

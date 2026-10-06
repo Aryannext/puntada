@@ -243,20 +243,16 @@ sudo cp despliegue/cron/taller /etc/cron.d/taller
 
 ### Connecting WhatsApp
 
-Automatic notices are sent from the WhatsApp linked to Evolution API, like WhatsApp Web.
+Automatic notices go out through the WhatsApp number each shop links, like WhatsApp Web. **The installer does not connect it: the owner does**, from the application itself (HU-39). Every business has its own session, and none sends through another one (RN-48).
 
-1. From your computer, open a tunnel to the server:
+All the server needs is `EVOLUTION_URL` and `EVOLUTION_API_KEY` in `despliegue/.env`, which the installer sets. With that, the owner:
 
-   ```sh
-   ssh -L 3013:127.0.0.1:3013 cristian@proyectosena.online
-   ```
+1. Signs in and opens **Settings → Shop WhatsApp**.
+2. Taps **Connect my WhatsApp**.
+3. Opens WhatsApp on her phone: **Three dots → Linked devices → Link a device**, and points the camera at the code.
+4. Goes back to Settings and sees **Connected**, with the linked number.
 
-2. On the server, read the key: `grep EVOLUTION_API_KEY despliegue/.env`.
-3. In your browser, open `http://localhost:3013/manager` and sign in with that key.
-4. Create the `taller` instance and scan the QR code from the shop's phone: **WhatsApp → Linked devices → Link a device**.
-5. On the server, set `EVOLUTION_INSTANCIA=taller` in `despliegue/.env` and apply it: `cd despliegue && docker compose up -d`.
-
-If the session is closed on the phone, notices are not lost: they wait for assisted sending until steps 1 to 4 are repeated.
+The session is named `taller-{business id}` and the system creates it on its own. If it is closed on the phone, that business's notices are not lost: they wait for assisted sending until the owner links it again from the same screen.
 
 ### Updating to a new version
 

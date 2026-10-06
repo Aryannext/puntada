@@ -36,7 +36,7 @@ Complementan las [historias de usuario](../../02-requisitos/historias-de-usuario
 
 | Actor | Tipo | Quién es | Participa en |
 | --- | --- | --- | --- |
-| **Dueña del taller** | Persona · actor principal | La usuaria del sistema; lo usa todos los días desde el celular | CU-01 a CU-31, CU-33 a CU-35, CU-36 y CU-37 |
+| **Dueña del taller** | Persona · actor principal | La usuaria del sistema; lo usa todos los días desde el celular | CU-01 a CU-31, CU-33 a CU-35, y CU-36 a CU-38 |
 | **Cliente del taller** | Persona que no usa el sistema | Deja prendas y recibe el aviso de que su orden está lista | CU-32 y, como secundario, CU-30 |
 | **WhatsApp Cloud API** | Sistema externo | Entrega el aviso automático al celular del cliente | CU-32 |
 
@@ -126,6 +126,7 @@ Generada desde las especificaciones.
 | [**CU-35** · Ver órdenes sin reclamar](duena-del-taller/08-seguimiento.md#cu-35--ver-órdenes-sin-reclamar) | Dueña del taller | HU-34 | PT-21 | `OrdenesSinReclamar` | 08 |
 | [**CU-36** · Entrar con Google](duena-del-taller/01-acceso-y-ajustes.md#cu-36--entrar-con-google) | Dueña del taller | HU-37 | PT-01 | `SesionController` | 01 |
 | [**CU-37** · Ponerle nombre al taller](duena-del-taller/01-acceso-y-ajustes.md#cu-37--ponerle-nombre-al-taller) | Dueña del taller | HU-38 | PT-23, PT-02 | `AjustesController` | 01 |
+| [**CU-38** · Conectar el WhatsApp del taller](duena-del-taller/01-acceso-y-ajustes.md#cu-38--conectar-el-whatsapp-del-taller) | Dueña del taller | HU-39 | PT-23, PT-18 | `AjustesController` | 01 |
 
 <!-- trazabilidad:fin -->
 

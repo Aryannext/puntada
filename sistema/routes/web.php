@@ -104,6 +104,10 @@ Route::middleware(['auth', 'auth.session', 'cache.headers:no_store;private'])->g
     // HU-38: el nombre del taller y el de la usuaria
     Route::put('/ajustes/taller', [AjustesController::class, 'personalizar'])->name('ajustes.taller');
     Route::put('/ajustes/plazo', [AjustesController::class, 'cambiarPlazo'])->name('ajustes.plazo');
+    // HU-39: el WhatsApp con el que avisa este taller (RN-48)
+    Route::post('/ajustes/whatsapp', [AjustesController::class, 'conectarWhatsapp'])->name('ajustes.whatsapp.conectar');
+    Route::get('/ajustes/whatsapp/estado', [AjustesController::class, 'estadoDeWhatsapp'])->name('ajustes.whatsapp.estado');
+    Route::delete('/ajustes/whatsapp', [AjustesController::class, 'desconectarWhatsapp'])->name('ajustes.whatsapp.desconectar');
     Route::post('/ajustes/tipos-de-prenda', [AjustesController::class, 'agregarTipo'])->name('ajustes.tipos.agregar');
     Route::put('/ajustes/tipos-de-prenda/{tipo}', [AjustesController::class, 'renombrarTipo'])->whereNumber('tipo')->name('ajustes.tipos.renombrar');
     Route::put('/ajustes/tipos-de-prenda/{tipo}/activo', [AjustesController::class, 'cambiarActivoTipo'])->whereNumber('tipo')->name('ajustes.tipos.activo');

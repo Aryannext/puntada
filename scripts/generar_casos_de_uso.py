@@ -135,8 +135,8 @@ DIAGRAMAS = [
     Diagrama("01", "01-duena-acceso-y-ajustes", "Acceso y ajustes", "duena-del-taller/01-acceso-y-ajustes.md", [
         actor("duena", DUENA, 0, 3),
         caso("CU-01", 1, 0), caso("CU-02", 1, 1), caso("CU-03", 1, 2), caso("CU-04", 1, 3), caso("CU-05", 1, 4),
-        caso("CU-36", 1, 5), caso("CU-37", 1, 6),
-    ], [asoc("duena", c) for c in ("CU-01", "CU-02", "CU-03", "CU-04", "CU-05", "CU-36", "CU-37")]),
+        caso("CU-36", 1, 5), caso("CU-37", 1, 6), caso("CU-38", 1, 7),
+    ], [asoc("duena", c) for c in ("CU-01", "CU-02", "CU-03", "CU-04", "CU-05", "CU-36", "CU-37", "CU-38")]),
 
     Diagrama("02", "02-duena-clientes", "Clientes", "duena-del-taller/02-clientes.md", [
         actor("duena", DUENA, 0, 1),

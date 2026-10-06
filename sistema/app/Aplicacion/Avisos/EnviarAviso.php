@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Aplicacion\Avisos;
 
 use App\Aplicacion\Consultas\DetalleDeOrden;
-use App\Dominio\Avisos\CanalDeAviso;
+use App\Dominio\Avisos\CanalesDeAviso;
 use App\Dominio\Avisos\MensajeDeAviso;
 use App\Dominio\Clientes\Celular;
 use App\Dominio\Compartido\Reloj;
@@ -46,7 +46,7 @@ class EnviarAviso implements ShouldQueue
         return [30, 120];
     }
 
-    public function handle(CanalDeAviso $canal, Reloj $reloj, DetalleDeOrden $detalleDeOrden): void
+    public function handle(CanalesDeAviso $canales, Reloj $reloj, DetalleDeOrden $detalleDeOrden): void
     {
         $aviso = Aviso::with('orden.cliente')->find($this->avisoId);
         // Ya se resolvió: un intento repetido no vuelve a enviarlo (RN-38)
@@ -63,7 +63,10 @@ class EnviarAviso implements ShouldQueue
             return;
         }
 
-        // RN-40: sin la API configurada, la dueña lo envía desde su WhatsApp. El mensaje se arma al abrirlo (RN-42)
+        // RN-48: el aviso sale del WhatsApp de este taller, nunca del de otro
+        $canal = $canales->paraInstancia($orden->negocio->instanciaConectada());
+
+        // RN-40: sin WhatsApp conectado, la dueña lo envía desde el suyo. El mensaje se arma al abrirlo (RN-42)
         if (! $canal->estaDisponible()) {
             $aviso->update(['estado' => 'pendiente_asistido']);
 

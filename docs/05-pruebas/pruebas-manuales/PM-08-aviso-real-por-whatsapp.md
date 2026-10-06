@@ -10,8 +10,8 @@ Comprobar que el aviso sale solo por el canal automático y llega de verdad a un
 
 ## Preparación
 
-1. HT-01 está terminado: Evolution API corre en el VPS y el WhatsApp del aprendiz está conectado a la instancia `taller`.
-2. `EVOLUTION_INSTANCIA=taller` está en las variables de entorno del VPS, no en el repositorio (RNF-24).
+1. HT-01 está terminado: Evolution API corre en el VPS, con `EVOLUTION_URL` y `EVOLUTION_API_KEY` en las variables de entorno del VPS, no en el repositorio (RNF-24).
+2. El negocio tiene su WhatsApp conectado desde **Ajustes → WhatsApp del taller** (HU-39): el aviso sale de ese número y de ningún otro (RN-48).
 3. Existe un cliente de prueba con un celular que tenga WhatsApp y que el aprendiz pueda revisar.
 4. Ese cliente tiene una orden con 2 prendas: una Terminada y otra En proceso, y un abono que deja saldo.
 
