@@ -46,4 +46,4 @@ El orden de las carpetas es el orden del proceso: cada fase parte de lo que dej�
 | [06-manuales](docs/06-manuales/) | Manual de usuario y manual técnico, en español e inglés |
 | [07-sustentacion](docs/07-sustentacion/) | La presentación, el guion de la demostración, las preguntas de defensa y el registro del ensayo |
 
-El código de la aplicación irá en `sistema/` a partir del Sprint 3, cuando el diseño esté cerrado.
+El código de la aplicación está en `sistema/`, construido a partir del Sprint 3 con el diseño ya cerrado.

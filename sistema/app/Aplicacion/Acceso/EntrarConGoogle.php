@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Aplicacion\Acceso;
 
+use App\Dominio\Acceso\GoogleNoRespondio;
 use App\Dominio\Acceso\IdentidadDeGoogle;
 use App\Dominio\Compartido\ReglaIncumplida;
 use App\Modelos\Usuario;
@@ -30,6 +31,7 @@ class EntrarConGoogle
      * La usuaria a la que pertenece el correo que Google confirmó.
      *
      * @throws ReglaIncumplida si Google no confirmó nada, o si ese correo no está registrado (RN-45)
+     * @throws GoogleNoRespondio si no se pudo hablar con Google, que no es lo mismo que un correo sin acceso
      */
     public function usuariaDelCodigo(string $codigo): Usuario
     {

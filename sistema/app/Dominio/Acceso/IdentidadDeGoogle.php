@@ -23,7 +23,9 @@ interface IdentidadDeGoogle
 
     /**
      * El correo verificado de quien entró, a cambio del código que Google devolvió.
-     * Devuelve null si Google no responde, si el código no sirve o si el correo no está verificado.
+     * Devuelve null si el código no sirve o si el correo no está verificado.
+     *
+     * @throws GoogleNoRespondio si no se pudo hablar con Google: sin internet, tiempo agotado o su servicio caído
      */
     public function correoVerificado(string $codigo): ?string;
 }

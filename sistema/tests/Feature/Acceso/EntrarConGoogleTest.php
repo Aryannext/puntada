@@ -4,6 +4,7 @@ namespace Tests\Feature\Acceso;
 
 use App\Modelos\Usuario;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -92,6 +93,20 @@ class EntrarConGoogleTest extends TestCase
 
         // Y aunque alguien escriba la dirección a mano, no se va a ninguna parte
         $this->get(route('sesion.google'))->assertRedirect(route('sesion.formulario'));
+    }
+
+    public function test_si_google_no_responde_se_ofrece_el_otro_camino(): void
+    {
+        // Sin internet o con Google caído, antes salía la pantalla de error del servidor
+        Http::fake(fn () => throw new ConnectionException('No se pudo conectar con accounts.google.com'));
+        $this->withSession(['google_estado' => 'xyz']);
+
+        $respuesta = $this->from(route('sesion.formulario'))
+            ->get(route('sesion.google.respuesta', ['code' => 'codigo-de-google', 'state' => 'xyz']));
+
+        $respuesta->assertRedirect(route('sesion.formulario'));
+        $respuesta->assertSessionHasErrors(['usuario' => 'No pudimos conectar con Google. Intenta otra vez, o entra con tu usuario y contraseña.']);
+        $this->assertGuest();
     }
 
     public function test_rn_45_solo_entra_un_correo_ya_registrado(): void

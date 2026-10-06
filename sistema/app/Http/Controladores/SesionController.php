@@ -3,6 +3,7 @@
 namespace App\Http\Controladores;
 
 use App\Aplicacion\Acceso\EntrarConGoogle;
+use App\Dominio\Acceso\GoogleNoRespondio;
 use App\Dominio\Compartido\ReglaIncumplida;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -55,6 +56,9 @@ class SesionController
             $usuaria = $entrarConGoogle->usuariaDelCodigo($codigo);
         } catch (ReglaIncumplida $regla) {
             throw ValidationException::withMessages(['usuario' => $regla->mensajeParaUsuaria]);
+        } catch (GoogleNoRespondio $caido) {
+            // Google no contestó: no es culpa de la usuaria ni de su correo, así que se le ofrece el otro camino
+            throw ValidationException::withMessages(['usuario' => $caido->getMessage()]);
         }
 
         Auth::login($usuaria);

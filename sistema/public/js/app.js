@@ -210,7 +210,7 @@ function valorAlCorregir() {
 // RNF-14: deshabilita el botón al primer toque. La garantía real es el token único que revisa el servidor.
 function unSoloEnvio() {
   document.querySelectorAll('form[data-un-envio]').forEach((formulario) => {
-    formulario.addEventListener('submit', () => {
+    formulario.addEventListener('submit', (evento) => {
       const botones = [...formulario.querySelectorAll('button[type="submit"]')];
       // PT-13: «Guardar cambios» está en las acciones fijas, fuera del formulario, y lo nombra con form=
       if (formulario.id) {
@@ -218,6 +218,11 @@ function unSoloEnvio() {
       }
       // Después de que el navegador arma el envío: un botón deshabilitado antes no manda su valor (PT-11 envía estado con el botón)
       setTimeout(() => {
+        // Si el envío no siguió —la confirmación de borrar lo frena para preguntar— el botón tiene que seguir sirviendo:
+        // de lo contrario, decir «No, dejarla» dejaba el botón muerto hasta recargar la página
+        if (evento.defaultPrevented) {
+          return;
+        }
         botones.forEach((boton) => {
           boton.disabled = true;
         });

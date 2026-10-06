@@ -1,13 +1,13 @@
 # Arquitectura del sistema
 
-**Estado:** borrador · DOC-16 · adelantado del Sprint 2 · se valida con el instructor · **Decisión:** [ADR-005](../adr/ADR-005-arquitectura-en-capas.md)
+**Estado:** vigente · DOC-16 · escrito en el Sprint 2 y al día con lo construido; la aprobación final del producto y su documentación es DOC-14 · **Decisión:** [ADR-005](../adr/ADR-005-arquitectura-en-capas.md)
 
 ## Para qué sirve
 
 Define cómo se organiza el código antes de escribirlo: qué partes tiene el sistema, qué puede usar cada una, en qué clase vive cada regla de negocio y qué caso de uso atiende cada historia. Es la guía del Sprint 3 y la base del diagrama de clases (DOC-18).
 
 `python scripts/verificar_arquitectura.py` comprueba que este documento no deje nada por fuera:
-- las 44 reglas y las 36 historias tienen su clase;
+- las 48 reglas y las 39 historias tienen su clase;
 - cada clase nombrada está en la estructura de carpetas;
 - cada pantalla citada existe en los mockups;
 - ninguna regla que el modelo de datos deja a la aplicación queda asignada solo a la base de datos.
@@ -53,9 +53,10 @@ flowchart TB
         navegador["Navegador<br/>páginas HTML generadas en el servidor"]
     end
     subgraph vps["VPS"]
-        web["Nginx y PHP-FPM<br/>aplicación Laravel"]
+        web["Apache con PHP 8.4<br/>aplicación Laravel, detrás del Nginx del VPS"]
         cola["Trabajador de la cola<br/>envía los avisos en segundo plano"]
-        programador["Programador de tareas<br/>respaldos"]
+        programador["Programador de tareas<br/>limpia los trabajos fallidos"]
+        cron["Cron del host<br/>respaldos diario y semanal"]
         mysql[("MySQL 8.4<br/>datos y cola de trabajos")]
         disco[("Disco privado<br/>fotos de las prendas")]
     end
@@ -68,8 +69,9 @@ flowchart TB
     cola --> mysql
     cola -- "HTTPS" --> api
     programador --> mysql
-    programador --> disco
-    programador -- "copia semanal" --> drive
+    cron --> mysql
+    cron --> disco
+    cron -- "copia semanal" --> drive
 ```
 
 | Contenedor | Por qué existe | Requisito |
@@ -77,7 +79,8 @@ flowchart TB
 | **APK para Android** | La usuaria trabaja desde el celular: el APK abre el mismo sistema a pantalla completa. No contiene lógica ni datos; en otros celulares se instala desde el navegador | RNF-35 · ADR-006 |
 | **Aplicación Laravel** | Atiende todas las pantallas; genera el HTML en el servidor con los estilos de los mockups | ADR-001 |
 | **Trabajador de la cola** | La pantalla no espera a WhatsApp, y un envío que falla se reintenta | RNF-04 · RNF-17 · ADR-003 |
-| **Programador de tareas** | Respaldo diario en el VPS y copia semanal fuera del servidor | RNF-15 |
+| **Programador de tareas** | Las tareas de la aplicación: limpia cada semana los trabajos fallidos de la cola | RNF-17 |
+| **Cron del host** | Respaldo diario en el VPS y copia semanal a Google Drive. Va en el host y no en un contenedor porque `mysqldump` corre dentro de `db` y para eso hace falta `docker` | RNF-15 |
 | **MySQL 8.4** | Datos del negocio y tabla de trabajos de la cola | [Modelo de datos](../modelo-de-datos/README.md) |
 | **Disco privado** | Las fotos no quedan en una carpeta pública; solo se entregan con sesión y del propio negocio | RNF-25 |
 
@@ -120,6 +123,7 @@ sistema/
 │   ├── Dominio/                          Reglas del negocio en PHP puro
 │   │   ├── Acceso/
 │   │   │   └── IdentidadDeGoogle.php       Interfaz: quién dice Google que está entrando
+│   │   │   └── GoogleNoRespondio.php       Google no contestó: no es un correo sin acceso
 │   │   ├── Clientes/
 │   │   │   └── Celular.php                 Objeto de valor: 10 dígitos que empiezan por 3
 │   │   ├── Ordenes/

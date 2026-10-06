@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infraestructura\Acceso;
 
+use App\Dominio\Acceso\GoogleNoRespondio;
 use App\Dominio\Acceso\IdentidadDeGoogle;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -50,13 +52,18 @@ final class GoogleOAuth implements IdentidadDeGoogle
 
     public function correoVerificado(string $codigo): ?string
     {
-        $respuesta = Http::asForm()->timeout(10)->post(self::INTERCAMBIO, [
-            'code' => $codigo,
-            'client_id' => $this->identificador,
-            'client_secret' => $this->secreto,
-            'redirect_uri' => $this->direccionDeVuelta,
-            'grant_type' => 'authorization_code',
-        ]);
+        try {
+            $respuesta = Http::asForm()->connectTimeout(5)->timeout(10)->post(self::INTERCAMBIO, [
+                'code' => $codigo,
+                'client_id' => $this->identificador,
+                'client_secret' => $this->secreto,
+                'redirect_uri' => $this->direccionDeVuelta,
+                'grant_type' => 'authorization_code',
+            ]);
+        } catch (ConnectionException $sinConexion) {
+            // Sin internet o sin respuesta a tiempo: no es una identidad inválida, es que Google no contestó
+            throw new GoogleNoRespondio;
+        }
 
         if ($respuesta->failed()) {
             Log::warning('Google no aceptó el código de acceso.', ['estado' => $respuesta->status()]);

@@ -39,7 +39,7 @@
 | **phpunit/phpunit** | Pruebas | Desarrollo |
 | **fakerphp/faker** | Datos de las fábricas de prueba | Desarrollo |
 
-En HT-02 se revisan los paquetes que el esqueleto de Laravel trae por defecto y se quitan los que no se usen, como Sail, porque el proyecto no usa Docker.
+En HT-02 se revisan los paquetes que el esqueleto de Laravel trae por defecto y se quitan los que no se usen, como Sail: el desarrollo no usa Docker, y el despliegue tiene su propia imagen en `despliegue/Dockerfile` (HT-04).
 
 **Regla:** toda dependencia nueva se agrega primero a esta tabla, con su uso. Menos dependencias significan menos cosas que actualizar y menos vulnerabilidades posibles (RNF-23).
 
